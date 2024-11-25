@@ -5,7 +5,7 @@ This is an Express server that allows users to make HTTP requests associated wit
 
 ## Project setup
 
-Run `npm install` in the root of repo to install the necessary dependencies.
+- Run `npm install` in the root of repo to install the necessary dependencies.
 
 - Run `npm run setup-dbs` to create the local test database.
 
