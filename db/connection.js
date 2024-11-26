@@ -1,6 +1,6 @@
 const { Pool } = require("pg");
 
-const path = `${dirname}/../.env.test`;
+const path = `${__dirname}/../.env.test`;
 
 require("dotenv").config({ path });
 
