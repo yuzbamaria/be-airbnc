@@ -14,7 +14,7 @@ PGDATABASE=airbnc_test
 ```
 - Run `npm run setup-dbs` to create the local test database.
 
-### How the Pool Accesses Credentials
+**How the Pool Accesses Credentials**
 The `pg` module's `Pool` instance accesses database credentials from the environment variables defined in the `.env.test` file.
 
 1. Loading Environment Variables:
@@ -34,4 +34,4 @@ When a `Pool` instance is created, it automatically reads credentials like `PGDA
 
 
 ## License 
-MIT License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
