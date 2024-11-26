@@ -14,14 +14,15 @@ PGDATABASE=airbnc_test
 ```
 - Run `npm run setup-dbs` to create the local test database.
 
-
+  
 **How the Pool Accesses Credentials**
+
 The `pg` module's `Pool` instance accesses database credentials from the environment variables defined in the `.env.test` file.
 
-1. Loading Environment Variables:
+1. **Loading Environment Variables:**
 The dotenv library loads variables from `.env.test` (e.g., `PGDATABASE=airbnc_test`) into `process.env`.
 
-2. Verifying Configuration:
+2. **Verifying Configuration:**
 The script checks that `PGDATABASE` is set. If missing, it throws an error:
 
 ```
@@ -30,7 +31,7 @@ if (!process.env.PGDATABASE) {
 };
 ```
 
-3. Connecting to the Database:
+3. **Connecting to the Database:**
 When a `Pool` instance is created, it automatically reads credentials like `PGDATABASE` from `process.env`.
 
 
