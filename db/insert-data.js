@@ -16,4 +16,15 @@ async function insertUsers(users) {
     return await db.query(format(queryStr, formattedUsers));
 };
 
-module.exports = { insertUsers };
+async function insertPropertyTypes(propertyTypes) {
+    const formattedPropertyTypes = propertyTypes.map(({ 
+        property_type,
+        description 
+    }) => [property_type, description]);
+    const queryStr = `INSERT INTO property_types
+        (property_type, description)
+        VALUES %L RETURNING *;`;
+    return await db.query(format(queryStr, formattedPropertyTypes));
+};
+
+module.exports = { insertUsers, insertPropertyTypes };

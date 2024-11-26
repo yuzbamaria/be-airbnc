@@ -1,11 +1,12 @@
 const db = require("./connection");
 const manageTables = require("./manage-tables");
 const  { 
-    insertUsers 
+    insertUsers, 
+    insertPropertyTypes 
 } = require("./insert-data");
-const { users } = require("./data/test/index.js")
+const { users, propertyTypes } = require("./data/test/index.js")
 
-async function seed(users) {
+async function seed(users, propertyTypes) {
     
     // DROP AND CREATE TABLES
     try {
@@ -17,6 +18,8 @@ async function seed(users) {
 
     // INSERT DATA 
     await insertUsers(users);
+    await insertPropertyTypes(propertyTypes);
+    db.end()
 };
-seed(users)
+seed(users, propertyTypes);
 module.exports = seed;
