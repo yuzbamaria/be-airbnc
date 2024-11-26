@@ -14,6 +14,7 @@ PGDATABASE=airbnc_test
 ```
 - Run `npm run setup-dbs` to create the local test database.
 
+
 **How the Pool Accesses Credentials**
 The `pg` module's `Pool` instance accesses database credentials from the environment variables defined in the `.env.test` file.
 
