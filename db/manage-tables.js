@@ -13,10 +13,12 @@ async function manageTables() {
     await db.query(`DROP TABLE IF EXISTS reviews;`);
     await db.query(`DROP TABLE IF EXISTS favourites;`);
     await db.query(`DROP TABLE IF EXISTS properties;`);
-    await Promise.all([
-        db.query(`DROP TABLE IF EXISTS property_types;`),
-        db.query(`DROP TABLE IF EXISTS users;`)
-    ]);
+    await db.query(`DROP TABLE IF EXISTS building_types;`);
+    await db.query(`DROP TABLE IF EXISTS users;`);
+    // await Promise.all([
+    //     db.query(`DROP TABLE IF EXISTS building_types;`),
+    //     db.query(`DROP TABLE IF EXISTS users;`)
+    // ]);
 
     // CREATE TABLES 
     await Promise.all([
@@ -26,19 +28,18 @@ async function manageTables() {
     await db.query(createPropertiesTable);
     await db.query(createFavouritesTable);
     await db.query(createReviewsTable);
-    
 };
 
-async function run() {
-    try {
-        await manageTables();  
-        console.log("Table created successfully.");
-    } catch (err) {
-        console.error("Error creating table:", err);
-    }
-}
+// async function run() {
+//     try {
+//         await manageTables();  
+//         console.log("Table created successfully.");
+//     } catch (err) {
+//         console.error("Error creating table:", err);
+//     }
+// }
 
-run();
+// run();
 module.exports = manageTables;
 
 

@@ -1,7 +1,7 @@
-exports.bookingsData = require("./bookings.json");
-exports.favouritesData = require("./favourites.json");
-exports.imagesData = require("./images.json");
-exports.propertiesData = require("./properties.json");
-exports.propertyTypesData = require("./property-types.json");
-exports.reviewsData = require("./reviews.json");
-exports.usersData = require("./users.json");
+exports.bookings = require("./bookings.json");
+exports.favourites = require("./favourites.json");
+exports.images = require("./images.json");
+exports.properties = require("./properties.json");
+exports.propertyTypes = require("./property-types.json");
+exports.reviews = require("./reviews.json");
+exports.users = require("./users.json");
