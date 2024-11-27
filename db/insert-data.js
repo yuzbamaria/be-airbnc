@@ -27,4 +27,29 @@ async function insertPropertyTypes(propertyTypes) {
     return await db.query(format(queryStr, formattedPropertyTypes));
 };
 
-module.exports = { insertUsers, insertPropertyTypes };
+async function insertProperties(properties) {
+    const formattedProperties = properties.map(({ 
+        host_id,
+        name, 
+        location,
+        property_type,
+        price_per_night,
+        description
+    }) => [host_id,
+        name, 
+        location,
+        property_type,
+        price_per_night,
+        description]);
+    const queryStr = `INSERT INTO properties
+        (host_id,
+        name, 
+        location,
+        property_type,
+        price_per_night,
+        description)
+        VALUES L% RETURNING *;`;
+    return await db.query(quesryStr, formattedProperties);
+};
+
+module.exports = { insertUsers, insertPropertyTypes, insertProperties };
