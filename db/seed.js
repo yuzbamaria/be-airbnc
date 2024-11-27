@@ -1,12 +1,21 @@
 const db = require("./connection");
 const manageTables = require("./manage-tables");
+
 const  { 
     insertUsers, 
-    insertPropertyTypes 
+    insertPropertyTypes,
+    insertProperties 
 } = require("./insert-data");
-const { users, propertyTypes } = require("./data/test/index.js")
 
-async function seed(users, propertyTypes) {
+const { 
+    createFullNames,  
+    formatData, 
+    orderProperties
+} = require("./utils.js");
+
+const { users, propertyTypes, properties } = require("./data/test/index.js")
+
+async function seed(users, propertyTypes, properties) {
     
     // DROP AND CREATE TABLES
     try {
@@ -17,9 +26,17 @@ async function seed(users, propertyTypes) {
     }
 
     // INSERT DATA 
-    await insertUsers(users);
+    const { rows: insertedUsers } = await insertUsers(users);
+    const hostRef = createFullNames(insertedUsers);
+    const formattedProperties = formatData(hostRef, "host_name", "host_id", properties);
+    console.log(formattedProperties)
+    const orderedProperties = orderProperties(formattedProperties);
+    console.log(orderedProperties)
+          
     await insertPropertyTypes(propertyTypes);
+    await insertProperties(orderedProperties);
+
     db.end()
 };
-seed(users, propertyTypes);
+seed(users, propertyTypes, properties);
 module.exports = seed;
