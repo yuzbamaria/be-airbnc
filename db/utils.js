@@ -1,8 +1,15 @@
-// const { properties } = require("./data/test/index.js");
 exports.lookUp = (insertData) => {
     const refObjs = {};
     insertData.forEach((row) => { 
             refObjs[`${[row.first_name]} ${row.surname}`] = row.user_id; 
+    });
+    return refObjs;
+};
+
+exports.lookUpProperties = (insertData) => {
+    const refObjs = {};
+    insertData.forEach((row) => { 
+            refObjs[row.name] = row.property_id; 
     });
     return refObjs;
 };
@@ -41,3 +48,13 @@ exports.selectHosts = (insertedUsers) => {
     });
     return hosts;
 };
+
+exports.selectGuests = (insertedUsers) => {
+    const guests = [];
+    insertedUsers.forEach((user) => {
+        if (user.role === "guest") {
+            guests.push(user);
+        };
+    });
+    return guests;
+}
