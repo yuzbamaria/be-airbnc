@@ -1,5 +1,5 @@
 // const { properties } = require("./data/test/index.js");
-exports.createFullNames = (insertData) => {
+exports.lookUp = (insertData) => {
     const refObjs = {};
     insertData.forEach((row) => { 
             refObjs[`${[row.first_name]} ${row.surname}`] = row.user_id; 
@@ -32,3 +32,12 @@ exports.orderProperties = (formattedProperties) => {
     return orderedProperties;
 };
 
+exports.selectHosts = (insertedUsers) => {
+    const hosts = [];
+    insertedUsers.forEach((user) => {
+        if (user.role === "host") {
+            hosts.push(user);
+        };
+    });
+    return hosts;
+};

@@ -8,9 +8,10 @@ const  {
 } = require("./insert-data");
 
 const { 
-    createFullNames,  
+    lookUp,  
     formatData, 
-    orderProperties
+    orderProperties,
+    selectHosts
 } = require("./utils.js");
 
 const { users, propertyTypes, properties } = require("./data/test/index.js")
@@ -25,16 +26,21 @@ async function seed(users, propertyTypes, properties) {
         console.error("Error creating table:", err);
     }
 
-    // INSERT DATA 
+  
     const { rows: insertedUsers } = await insertUsers(users);
-    const hostRef = createFullNames(insertedUsers);
+   
+    const hosts = selectHosts(insertedUsers);
+    console.log(hosts)
+    const hostRef = lookUp(hosts);
+    console.log(hostRef)
     const formattedProperties = formatData(hostRef, "host_name", "host_id", properties);
-    console.log(formattedProperties)
     const orderedProperties = orderProperties(formattedProperties);
-    console.log(orderedProperties)
-          
+    
+ 
     await insertPropertyTypes(propertyTypes);
     await insertProperties(orderedProperties);
+
+    // const guestRef = lookUp(insertedUsers)
 
     db.end()
 };

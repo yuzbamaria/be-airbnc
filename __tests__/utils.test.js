@@ -1,10 +1,11 @@
 const {
-    createFullNames, 
+    lookUp, 
     formatData, 
-    orderProperties
+    orderProperties,
+    selectHosts
 } = require("../db/utils");
 
-describe("createFullName", () => {
+describe("lookUp", () => {
     test("returns an object with combined first_name & surname into fullname, and corresponding id", () => {
         const user = [{
                 user_id: 2,
@@ -16,7 +17,7 @@ describe("createFullName", () => {
                 avatar: 'https://example.com/images/bob.jpg',
                 created_at: "2024-11-27T12:47:03.949Z"
         }];
-        expect(createFullNames(user)).toEqual({ 'Bob Smith': 2 });
+        expect(lookUp(user)).toEqual({ 'Bob Smith': 2 });
     });
 });
 describe("formatData", () => {
@@ -59,4 +60,28 @@ describe("orderProperties", () => {
             'Description of Modern Apartment in City Center.'
           ]]);
     });
+});
+describe("selectHosts", () => {
+    test("selects user objects where role is host", () => {
+        const insertedUsers = [{
+            user_id: 1,
+            first_name: 'Alice',
+            surname: 'Johnson',
+            role: 'host'
+        },
+        {
+            user_id: 2,
+            first_name: 'Bob',
+            surname: 'Smith',
+            role: 'guest'
+        }];
+        const hosts = selectHosts(insertedUsers)
+        expect(hosts).toEqual([{
+            user_id: 1,
+            first_name: 'Alice',
+            surname: 'Johnson',
+            role: 'host'
+        }]);
+        
+    })
 })
