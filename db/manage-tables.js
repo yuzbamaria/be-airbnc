@@ -13,7 +13,7 @@ async function manageTables() {
     await db.query(`DROP TABLE IF EXISTS reviews;`);
     await db.query(`DROP TABLE IF EXISTS favourites;`);
     await db.query(`DROP TABLE IF EXISTS properties;`);
-    await db.query(`DROP TABLE IF EXISTS building_types;`);
+    await db.query(`DROP TABLE IF EXISTS property_types;`);
     await db.query(`DROP TABLE IF EXISTS users;`);
     // await Promise.all([
     //     db.query(`DROP TABLE IF EXISTS building_types;`),

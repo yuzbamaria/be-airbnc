@@ -60,5 +60,16 @@ exports.selectGuests = (insertedUsers) => {
 };
 
 exports.orderReviews = (formattedReviews) => {
-    const orderedReviews = 
-}
+    const orderedReviews = formattedReviews.map(({
+        rating,
+        comment,
+        guest_id, 
+        property_id
+    }) => [
+        property_id,
+        guest_id,
+        rating,
+        comment
+    ]);
+    return orderedReviews;
+};
