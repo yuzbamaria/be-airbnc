@@ -30,16 +30,6 @@ async function manageTables() {
     await db.query(createReviewsTable);
 };
 
-// async function run() {
-//     try {
-//         await manageTables();  
-//         console.log("Table created successfully.");
-//     } catch (err) {
-//         console.error("Error creating table:", err);
-//     }
-// }
-
-// run();
 module.exports = manageTables;
 
 

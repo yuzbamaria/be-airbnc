@@ -1,8 +1,10 @@
 const {
     lookUp, 
+    lookUpProperties, 
     formatData, 
     orderProperties,
-    selectHosts
+    selectHosts,
+    selectGuests
 } = require("../db/utils");
 
 describe("lookUp", () => {
@@ -19,6 +21,9 @@ describe("lookUp", () => {
         }];
         expect(lookUp(user)).toEqual({ 'Bob Smith': 2 });
     });
+});
+describe("lookUpProperties", () => {
+
 });
 describe("formatData", () => {
     test("returns an array", () => {
@@ -84,4 +89,7 @@ describe("selectHosts", () => {
         }]);
         
     })
+});
+describe("selectGuests", () => {
+
 });

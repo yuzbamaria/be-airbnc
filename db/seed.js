@@ -5,7 +5,8 @@ const  {
     insertUsers, 
     insertPropertyTypes,
     insertProperties,
-    insertFavourites
+    insertFavourites, 
+    insertReviews
 } = require("./insert-data");
 
 const { 
@@ -17,9 +18,9 @@ const {
     selectGuests
 } = require("./utils.js");
 
-const { users, propertyTypes, properties, favourites } = require("./data/test/index.js")
+const { users, propertyTypes, properties, favourites, reviews } = require("./data/test/index.js")
 
-async function seed(users, propertyTypes, properties, favourites) {
+async function seed(users, propertyTypes, properties, favourites, reviews) {
     
     // DROP AND CREATE TABLES
     try {
@@ -43,13 +44,20 @@ async function seed(users, propertyTypes, properties, favourites) {
 
     const guests = selectGuests(insertedUsers);
     const guestRef = lookUp(guests);
+    console.log(guestRef)
     const propertyRef = lookUpProperties(insertedProperties);
-    // console.log(propertyRef)
+    console.log(propertyRef)
+
     const formattedGuestsIDs = formatData(guestRef, "guest_name", "guest_id", favourites);
     const formattedFavourites = formatData(propertyRef, "property_name", "property_id", formattedGuestsIDs);
     // console.log(formattedFavourites);
     await insertFavourites(formattedFavourites);
+
+    const formattedReviewsGuestsNames = formatData(guestRef, "guest_name", "guest_id", reviews);
+    console.log(formattedReviewsGuestsNames);
+    const formattedReviews = formatData(propertyRef, "property_name", "property_id", formattedReviewsGuestsNames);
+    console.log(formattedReviews)
     db.end()
 };
-seed(users, propertyTypes, properties, favourites);
+seed(users, propertyTypes, properties, favourites, reviews);
 module.exports = seed;

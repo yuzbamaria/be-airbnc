@@ -53,4 +53,15 @@ async function insertFavourites(favourites) {
     return await db.query(format(queryStr, formattedFavourites));
 };
 
-module.exports = { insertUsers, insertPropertyTypes, insertProperties, insertFavourites };
+async function insertReviews(reviews) {
+    const queryStr = `INSERT INTO reviews
+        (property_id,
+        guest_id, 
+        rating, 
+        comment)
+        VALUES %L RETURNING *;`;
+    return await db.query(format(queryStr, reviews))
+
+}
+
+module.exports = { insertUsers, insertPropertyTypes, insertProperties, insertFavourites, insertReviews };

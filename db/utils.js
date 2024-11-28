@@ -57,4 +57,8 @@ exports.selectGuests = (insertedUsers) => {
         };
     });
     return guests;
+};
+
+exports.orderReviews = (formattedReviews) => {
+    const orderedReviews = 
 }
