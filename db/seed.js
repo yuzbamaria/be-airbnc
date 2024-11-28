@@ -1,4 +1,3 @@
-const db = require("./connection");
 const manageTables = require("./manage-tables");
 
 const  { 
@@ -19,9 +18,8 @@ const {
     orderReviews
 } = require("./utils.js");
 
-const { users, propertyTypes, properties, favourites, reviews } = require("./data/test/index.js")
 
-async function seed(users, propertyTypes, properties, favourites, reviews) {
+async function seed({ users, propertyTypes, properties, favourites, reviews }) {
     
     // DROP AND CREATE TABLES
     try {
@@ -29,7 +27,7 @@ async function seed(users, propertyTypes, properties, favourites, reviews) {
         console.log("Table created successfully.");
     } catch (err) {
         console.error("Error creating table:", err);
-    }
+    };
 
     // INSERT DATA
     // INSERT USERS TABLE
@@ -60,7 +58,6 @@ async function seed(users, propertyTypes, properties, favourites, reviews) {
     const formattedReviews = formatData(propertyRef, "property_name", "property_id", formattedReviewsGuestsNames);
     const orderedReviews = orderReviews(formattedReviews);
     await insertReviews(orderedReviews);
-    db.end()
 };
-seed(users, propertyTypes, properties, favourites, reviews);
+
 module.exports = seed;
