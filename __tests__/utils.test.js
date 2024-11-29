@@ -87,7 +87,6 @@ describe("selectHosts", () => {
             surname: 'Johnson',
             role: 'host'
         }]);
-        
     })
 });
 describe("selectGuests", () => {

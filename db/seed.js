@@ -34,6 +34,7 @@ async function seed({ users, propertyTypes, properties, favourites, reviews }) {
     const { rows: insertedUsers } = await insertUsers(users);
     const hosts = selectHosts(insertedUsers);
     const hostRef = lookUp(hosts);
+    console.log(hostRef)
 
     const formattedProperties = formatData(hostRef, "host_name", "host_id", properties);
     const orderedProperties = orderProperties(formattedProperties);
