@@ -22,19 +22,19 @@ const {
 async function seed({ users, propertyTypes, properties, favourites, reviews }) {
     
     // DROP AND CREATE TABLES
-    try {
-        await manageTables();  
-        console.log("Table created successfully.");
-    } catch (err) {
-        console.error("Error creating table:", err);
-    };
+    await manageTables();  
+    // try {
+    //     
+    //     console.log("Table created successfully.");
+    // } catch (err) {
+    //     console.error("Error creating table:", err);
+    // };
 
     // INSERT DATA
     // INSERT USERS TABLE
     const { rows: insertedUsers } = await insertUsers(users);
     const hosts = selectHosts(insertedUsers);
     const hostRef = lookUp(hosts);
-    console.log(hostRef)
 
     const formattedProperties = formatData(hostRef, "host_name", "host_id", properties);
     const orderedProperties = orderProperties(formattedProperties);

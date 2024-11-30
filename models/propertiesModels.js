@@ -1,16 +1,17 @@
-// const { on } = require("supertest/lib/test");
 const db = require("../db/connection");
 const { lookUpHosts, mapHostKey, orderProperties } = require("./utils");
 
-exports.fetchProperties = async() => {
-    const queryStr = `SELECT
+const fetchProperties = async(sortBy = "favourites_count", order = "desc") => {
+
+    let queryStr = `SELECT
             properties.property_id,
             properties.name,
             properties.location,
             properties.price_per_night,
             properties.host_id,
             users.first_name,
-            users.surname
+            users.surname,
+            COUNT(favourites.favourite_id) as favourites_count
         FROM properties
         JOIN users ON
             properties.host_id = users.user_id
@@ -19,10 +20,11 @@ exports.fetchProperties = async() => {
         GROUP BY
             properties.property_id,
             users.first_name,
-            users.surname
-        ORDER BY
-            COUNT(favourites.favourite_id) DESC
-        ;`;
+            users.surname `;
+
+    if (sortBy || order) {
+        queryStr += `ORDER BY ${sortBy} ${order};`
+    };
 
     const { rows } = await db.query(queryStr);
     const hostsRef = lookUpHosts(rows);
@@ -31,3 +33,7 @@ exports.fetchProperties = async() => {
 
     return { properties: orderedProperties };
 };
+
+fetchProperties().then((result) => console.log(result))
+
+module.exports = fetchProperties;
