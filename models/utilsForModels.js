@@ -1,11 +1,11 @@
-const { favourites } = require("../db/data/test");
+// const { favourites } = require("../db/data/test");
 
 exports.orderProperties = (updatedHostKeyProperties) => {
     const orderedProperties = updatedHostKeyProperties.map((property) => ({
         property_id: property.property_id,
         property_name: property.name,
         location: property.location, 
-        price_per_night: property.price_per_night,
+        price_per_night: Number(property.cost_per_night),
         host: property.host
         // favourites_count: property.favourites_count
     }));

@@ -1,13 +1,18 @@
 const db = require("../db/connection");
 const { lookUpHosts, mapHostKey, orderProperties } = require("./utilsForModels");
 
-const fetchProperties = async(sortBy = "favourites_count", order = "desc") => {
+const fetchProperties = async(sort = "favourites_count", order = "desc") => {
+
+    const validSortOptions = [
+        "favourites_count", 
+        "cost_per_night"
+    ];
 
     let queryStr = `SELECT
             properties.property_id,
             properties.name,
             properties.location,
-            properties.price_per_night,
+            properties.price_per_night::int AS cost_per_night,
             properties.host_id,
             users.first_name,
             users.surname,
@@ -22,8 +27,8 @@ const fetchProperties = async(sortBy = "favourites_count", order = "desc") => {
             users.first_name,
             users.surname `;
 
-    if (sortBy || order) {
-        queryStr += `ORDER BY ${sortBy} ${order};`
+    if (sort || order) {
+        queryStr += `ORDER BY ${sort} ${order};`
     };
 
     const { rows } = await db.query(queryStr);
@@ -33,7 +38,6 @@ const fetchProperties = async(sortBy = "favourites_count", order = "desc") => {
 
     return { properties: orderedProperties };
 };
-
 // fetchProperties().then((result) => console.log(result))
 
 module.exports = fetchProperties;

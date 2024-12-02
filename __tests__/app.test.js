@@ -36,5 +36,10 @@ describe("app", () => {
                 expect(property).toHaveProperty("host");
             });
         });
+        test("responds with properties objects sorted by cost_per_night, if it's provided in the query", async() => {
+            const { body: { properties } } = await request(app)
+                .get("/api/properties?sort=cost_per_night");
+            expect(properties).toBeSortedBy("price_per_night", { descending: true });
+        })
     });
 });
