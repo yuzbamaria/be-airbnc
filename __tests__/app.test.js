@@ -14,6 +14,12 @@ afterAll(() => {
 });
 
 describe("app", () => {
+    test("path not found", async() => {
+        const { body: { msg } } = await request(app)
+            .get("/invalid/endpoint")
+            .expect(404);
+        expect(msg).toBe("Path not found.");
+    });
     describe("/api/properties", () => {
         // HAPPY PATH
         test("200 - responds with an array of objects and props: property_id, property_name, location, price_per_night, host(<full name>)", async() => {

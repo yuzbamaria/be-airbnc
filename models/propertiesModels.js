@@ -1,5 +1,5 @@
 const db = require("../db/connection");
-const { lookUpHosts, mapHostKey, orderProperties } = require("./utils");
+const { lookUpHosts, mapHostKey, orderProperties } = require("./utilsForModels");
 
 const fetchProperties = async(sortBy = "favourites_count", order = "desc") => {
 
@@ -34,6 +34,6 @@ const fetchProperties = async(sortBy = "favourites_count", order = "desc") => {
     return { properties: orderedProperties };
 };
 
-fetchProperties().then((result) => console.log(result))
+// fetchProperties().then((result) => console.log(result))
 
 module.exports = fetchProperties;
