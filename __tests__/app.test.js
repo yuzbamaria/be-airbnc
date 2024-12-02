@@ -21,6 +21,7 @@ describe("app", () => {
         expect(msg).toBe("Path not found.");
     });
     describe("/api/properties", () => {
+        
         // HAPPY PATH
         test("200 - responds with an array of objects and props: property_id, property_name, location, price_per_night, host(<full name>)", async() => {
             const { body: { properties } } = await request(app)
@@ -40,6 +41,15 @@ describe("app", () => {
             const { body: { properties } } = await request(app)
                 .get("/api/properties?sort=cost_per_night");
             expect(properties).toBeSortedBy("price_per_night", { descending: true });
-        })
+        });
+    
+        // SAD PATH
+        test("400 - bad request if invalid query sort option is provided", async() => {
+            const { body: { msg } } = await request(app)
+                .get("/api/properties?sort=cott_per_night")
+                .expect(400);
+            console.log(msg)
+            expect(msg).toBe("Bad request - invalid sort option.");
+        });
     });
 });

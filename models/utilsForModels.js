@@ -5,7 +5,7 @@ exports.orderProperties = (updatedHostKeyProperties) => {
         property_id: property.property_id,
         property_name: property.name,
         location: property.location, 
-        price_per_night: Number(property.cost_per_night),
+        price_per_night: property.cost_per_night,
         host: property.host
         // favourites_count: property.favourites_count
     }));

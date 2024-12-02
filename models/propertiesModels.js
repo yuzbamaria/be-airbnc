@@ -8,6 +8,10 @@ const fetchProperties = async(sort = "favourites_count", order = "desc") => {
         "cost_per_night"
     ];
 
+    if (!validSortOptions.includes(sort)) {
+        return Promise.reject({ status: 400, msg: "Bad request - invalid sort option"})
+    };
+
     let queryStr = `SELECT
             properties.property_id,
             properties.name,
