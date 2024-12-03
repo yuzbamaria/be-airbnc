@@ -1,15 +1,19 @@
 const db = require("../db/connection");
 const { lookUpHosts, mapHostKey, orderProperties } = require("./utilsForModels");
 
-const fetchProperties = async(sort = "favourites_count", order = "desc") => {
+const fetchProperties = async(sort = "popularity", order = "desc") => {
 
     const validSortOptions = [
-        "favourites_count", 
+        "popularity", 
         "cost_per_night"
     ];
 
-    if (!validSortOptions.includes(sort)) {
-        return Promise.reject({ status: 400, msg: "Bad request - invalid sort option"})
+    const validOrderOptions = ["asc", "desc"];
+
+    if (!validSortOptions.includes(sort) ||
+        !validOrderOptions.includes(order)   
+) {
+        return Promise.reject({ status: 400, msg: "Bad request - invalid sort or order option"})
     };
 
     let queryStr = `SELECT
@@ -20,7 +24,7 @@ const fetchProperties = async(sort = "favourites_count", order = "desc") => {
             properties.host_id,
             users.first_name,
             users.surname,
-            COUNT(favourites.favourite_id) as favourites_count
+            COUNT(favourites.favourite_id) as popularity
         FROM properties
         JOIN users ON
             properties.host_id = users.user_id
