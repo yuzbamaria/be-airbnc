@@ -13,7 +13,7 @@ afterAll(() => {
     return db.end();
 });
 
-describe("app", () => {
+describe.only("app", () => {
     test("path not found", async() => {
         const { body: { msg } } = await request(app)
             .get("/invalid/endpoint")
@@ -65,13 +65,26 @@ describe("app", () => {
             const originalResIds = properties.map((property) => property.property_id);
             expect(dbTestIds).toEqual(originalResIds);
         });
+        test("responds with selected properties objects according to the passed host_id", async() => {
+            const { body: { properties } } = await request(app)
+                .get("/api/properties?host=1");
+            properties.map((property) => {
+                expect(property.host).toBe('Alice Johnson');
+            });
+        });
     
         // SAD PATH
-        test("400 - bad request if invalid query sort option is provided", async() => {
+        test("404 - resource not found if valid, but non-existant sort is provided", async() => {
             const { body: { msg } } = await request(app)
                 .get("/api/properties?sort=cott_per_night")
+                .expect(404);
+            expect(msg).toBe("Resource not found.");
+        });
+        test("400 - bad request if invalid host endpoint is provided", async() => {
+            const { body: { msg } } = await request(app)
+                .get("/api/properties?host=cat")
                 .expect(400);
-            expect(msg).toBe("Bad request - invalid sort option.");
+            expect(msg).toBe("Bad request - invalid host id.");
         });
     });
 });
