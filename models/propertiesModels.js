@@ -1,7 +1,7 @@
 const db = require("../db/connection");
 const { lookUpHosts, mapHostKey, orderProperties } = require("./utilsForModels");
 
-const fetchProperties = async(sort, order, host) => {
+const fetchProperties = async(sort, order, host, maxprice) => {
 
     let queryStr = `SELECT
             properties.property_id,
@@ -19,10 +19,17 @@ const fetchProperties = async(sort, order, host) => {
             properties.property_id = favourites.property_id `;
 
     const params = [];
-    if (host) {
-        host = Number(host);
-        queryStr += `WHERE host_id = $1 `;
-        params.push(host);
+    if(host) {
+        queryStr += `WHERE host_id = $${params.length + 1} `;
+        params.push(Number(host));
+    };
+    if(maxprice) {
+        if(host) {
+            queryStr += `AND price_per_night <= $${params.length + 1} `;
+        } else {
+            queryStr += `WHERE price_per_night <= $${params.length + 1} `;
+        };
+        params.push(Number(maxprice));
     };
 
     queryStr += `GROUP BY
@@ -36,9 +43,8 @@ const fetchProperties = async(sort, order, host) => {
     const hostsRef = lookUpHosts(rows);
     const updatedHostKeyProperties = mapHostKey(hostsRef, "host_id", "host", rows);
     const orderedProperties = orderProperties(updatedHostKeyProperties);
-
     return { properties: orderedProperties };
 };
-// fetchProperties(undefined, undefined, 1).then((result) => console.log(result))
+// fetchProperties("popularity", "desc", 1, 200).then((result) => console.log(result))
 
 module.exports = fetchProperties;

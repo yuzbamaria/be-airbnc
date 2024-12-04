@@ -37,12 +37,12 @@ describe.only("app", () => {
                 expect(property).toHaveProperty("host");
             });
         });
-        test("responds with properties objects sorted by cost_per_night, descending order by default, if it's provided in the query", async() => {
+        test("'sort=cost_per_night' - responds with properties objects sorted by cost_per_night, descending order by default, if it's provided in the query", async() => {
             const { body: { properties } } = await request(app)
                 .get("/api/properties?sort=cost_per_night");
             expect(properties).toBeSortedBy("price_per_night", { descending: true });
         });
-        test("responds with properties objects sorted by popularity, ascending order if provided, otherwise descending by default", async() => {
+        test("'sort=popularity' - responds with properties objects sorted by popularity, ascending order if provided, otherwise descending by default", async() => {
             const { body: { properties } } = await request(app)
                 .get("/api/properties?sort=popularity&order=asc");
             const dbTest = await db.query(`
@@ -65,14 +65,30 @@ describe.only("app", () => {
             const originalResIds = properties.map((property) => property.property_id);
             expect(dbTestIds).toEqual(originalResIds);
         });
-        test("responds with selected properties objects according to the passed host_id", async() => {
+        test("'host=<id>' - responds with selected properties objects according to the passed host_id", async() => {
             const { body: { properties } } = await request(app)
                 .get("/api/properties?host=1");
             properties.map((property) => {
                 expect(property.host).toBe('Alice Johnson');
             });
         });
+        test("'maxprice=<max cost per night>' - responds with selected properties objects with price_per_night less than maxprice", async() => {
+            const { body: { properties } } = await request(app)
+                .get("/api/properties?maxprice=200");
+            properties.forEach((property) => {
+                expect(property.price_per_night).toBeLessThanOrEqual(200);
+            });
+        });
+        test("'host=<id>&maxprice=<max cost per night>' - responds with selected properties objects as to the passed filters", async() => {
+            const { body: { properties } } = await request(app)
+                .get("/api/properties?host=1&maxprice=150");
+            properties.forEach((property) => {
+                expect(property.price_per_night).toBeLessThanOrEqual(150);
+                expect(property.host).toBe('Alice Johnson');
+            });
+        });
     
+
         // SAD PATH
         test("404 - resource not found if valid, but non-existant sort is provided", async() => {
             const { body: { msg } } = await request(app)
@@ -80,11 +96,17 @@ describe.only("app", () => {
                 .expect(404);
             expect(msg).toBe("Resource not found.");
         });
-        test("400 - bad request if invalid host endpoint is provided", async() => {
+        test("host, 400 - bad request if invalid host endpoint is provided", async() => {
             const { body: { msg } } = await request(app)
                 .get("/api/properties?host=cat")
                 .expect(400);
-            expect(msg).toBe("Bad request - invalid host id.");
+            expect(msg).toBe("Bad request - invalid endpoint.");
+        });
+        test("maxprice, 400 - bad request if invalid maxprice endpoint is provided", async() => {
+            const { body: { msg } } = await request(app)
+                .get("/api/properties?maxprice=dog")
+                .expect(400);
+            expect(msg).toBe("Bad request - invalid endpoint.");
         });
     });
 });
