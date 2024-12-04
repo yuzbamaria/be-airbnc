@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
-const { handlePathNotFound, handleCustomError } = require("./errors/handleErrors");
+const { handlePathNotFound, handleCustomError, handleDbDataTypeErrors } = require("./errors/handleErrors");
 const { getProperties } = require("./controllers/propertiesController");
 
 app.get("/api/properties", getProperties);
+app.all("/*", handlePathNotFound); // catch-all
 
-app.all("/*", handlePathNotFound);
-
-app.use(handleCustomError);
+app.use(handleDbDataTypeErrors);
+app.use(handleCustomError); // generic error handler
 
 module.exports = app;

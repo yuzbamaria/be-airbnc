@@ -1,7 +1,7 @@
 const db = require("../db/connection");
 const { lookUpHosts, mapHostKey, orderProperties } = require("./utilsForModels");
 
-const fetchProperties = async(sort, order, host, maxprice) => {
+const fetchProperties = async(sort, order, host, maxprice, minprice) => {
 
     let queryStr = `SELECT
             properties.property_id,
@@ -23,13 +23,23 @@ const fetchProperties = async(sort, order, host, maxprice) => {
         queryStr += `WHERE host_id = $${params.length + 1} `;
         params.push(Number(host));
     };
-    if(maxprice) {
+    if(maxprice || minprice) {
         if(host) {
-            queryStr += `AND price_per_night <= $${params.length + 1} `;
+            queryStr += `AND `;
         } else {
-            queryStr += `WHERE price_per_night <= $${params.length + 1} `;
+            queryStr += `WHERE `;
         };
-        params.push(Number(maxprice));
+
+        const maxMinOptions = [];
+        if(maxprice) {
+            maxMinOptions.push(`price_per_night <= $${params.length + 1}`);
+            params.push(Number(maxprice));
+        };
+        if(minprice) {
+            maxMinOptions.push(`price_per_night >= $${params.length + 1}`);
+            params.push(minprice);
+        }
+        queryStr += maxMinOptions;
     };
 
     queryStr += `GROUP BY
@@ -40,11 +50,16 @@ const fetchProperties = async(sort, order, host, maxprice) => {
     queryStr += `ORDER BY ${sort} ${order};`;
 
     const { rows } = await db.query(queryStr, params);
+
+    if(rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "Resource not found." })
+    };
     const hostsRef = lookUpHosts(rows);
     const updatedHostKeyProperties = mapHostKey(hostsRef, "host_id", "host", rows);
     const orderedProperties = orderProperties(updatedHostKeyProperties);
+
     return { properties: orderedProperties };
 };
-// fetchProperties("popularity", "desc", 1, 200).then((result) => console.log(result))
+// fetchProperties("popularity", "desc", 11111111, undefined, undefined).then((result) => console.log(result))
 
 module.exports = fetchProperties;

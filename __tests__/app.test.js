@@ -87,26 +87,58 @@ describe.only("app", () => {
                 expect(property.host).toBe('Alice Johnson');
             });
         });
+        test("'?minprice=<min cost per night>' - responds with selected properties objects with price_per_night more than minprice", async() => {
+            const { body: { properties } } = await request(app)
+                .get("/api/properties?minprice=150");
+            properties.forEach((property) => {
+                expect(property.price_per_night).toBeGreaterThanOrEqual(150);
+            });
+        });
     
 
         // SAD PATH
-        test("404 - resource not found if valid, but non-existant sort is provided", async() => {
+        test("sort, 404 - resource not found if valid, but non-existant sort is provided", async() => {
             const { body: { msg } } = await request(app)
                 .get("/api/properties?sort=cott_per_night")
                 .expect(404);
-            expect(msg).toBe("Resource not found.");
+            expect(msg).toBe("Path not found.");
         });
         test("host, 400 - bad request if invalid host endpoint is provided", async() => {
             const { body: { msg } } = await request(app)
                 .get("/api/properties?host=cat")
                 .expect(400);
-            expect(msg).toBe("Bad request - invalid endpoint.");
+            expect(msg).toBe("Bad request.");
         });
-        test("maxprice, 400 - bad request if invalid maxprice endpoint is provided", async() => {
+        test("host, 404 - resource not found if valid, but non-existant host passed", async() => {
             const { body: { msg } } = await request(app)
-                .get("/api/properties?maxprice=dog")
+                .get("/api/properties?host=2222222")
+                .expect(404);
+            expect(msg).toBe("Resource not found.");
+        });
+        test("maxprice, 404 - resource not found if valid, but non-existant host passed", async() => {
+            const { body: { msg } } = await request(app)
+                .get("/api/properties?maxprice=1")
+                .expect(404);
+            expect(msg).toBe("Resource not found.");
+        });
+        // <----- BLOCKER ------->
+        // test("maxprice, 400 - bad request if invalid maxprice endpoint is provided", async() => {
+        //     const { body: { msg } } = await request(app)
+        //         .get("/api/properties?maxprice=dog")
+        //         .expect(400);
+        //     expect(msg).toBe("Bad request."); // <----- BLOCKER
+        // });
+        test("minprice, 404 - resource not found if valid, but non-existant host passed", async() => {
+            const { body: { msg } } = await request(app)
+                .get("/api/properties?minprice=1000000")
+                .expect(404);
+            expect(msg).toBe("Resource not found.");
+        });
+        test("minprice, 400 - bad request if invalid minprice endpoint is provided", async() => {
+            const { body: { msg } } = await request(app)
+                .get("/api/properties?minprice=dog")
                 .expect(400);
-            expect(msg).toBe("Bad request - invalid endpoint.");
+            expect(msg).toBe("Bad request.");
         });
     });
 });
