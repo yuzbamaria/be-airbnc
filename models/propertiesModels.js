@@ -1,7 +1,20 @@
 const db = require("../db/connection");
 const { lookUpHosts, mapHostKey, orderProperties } = require("./utilsForModels");
 
-const fetchProperties = async(sort, order, host, maxprice, minprice) => {
+exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxprice, minprice) => {
+
+    const validSortOptions = [
+        "popularity", 
+        "cost_per_night"
+    ];
+
+    const validOrderOptions = ["asc", "desc"];
+
+    if (!validSortOptions.includes(sort) ||
+        !validOrderOptions.includes(order)   
+    ) {
+        return Promise.reject({ status: 404, msg: "Path not found." }); // handlePathNotFound, 404
+    };
 
     let queryStr = `SELECT
             properties.property_id,
@@ -61,5 +74,3 @@ const fetchProperties = async(sort, order, host, maxprice, minprice) => {
     return { properties: orderedProperties };
 };
 // fetchProperties("popularity", "desc", 11111111, undefined, undefined).then((result) => console.log(result))
-
-module.exports = fetchProperties;

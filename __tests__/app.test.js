@@ -4,6 +4,7 @@ const db = require("../db/connection");
 const data = require("../db/data/test/index");
 const seed = require("../db/seed");
 require('jest-sorted');
+require('jest-extended');
 
 beforeEach(() => {
     return seed(data);
@@ -22,7 +23,7 @@ describe.only("app", () => {
     });
     describe("/api/properties", () => {
         
-        // HAPPY PATH
+        // -------> HAPPY PATH <--------
         test("200 - responds with an array of objects and props: property_id, property_name, location, price_per_night, host(<full name>)", async() => {
             const { body: { properties } } = await request(app)
                 .get("/api/properties")
@@ -94,9 +95,8 @@ describe.only("app", () => {
                 expect(property.price_per_night).toBeGreaterThanOrEqual(150);
             });
         });
-    
 
-        // SAD PATH
+        // -------> SAD PATH <--------
         test("sort, 404 - resource not found if valid, but non-existant sort is provided", async() => {
             const { body: { msg } } = await request(app)
                 .get("/api/properties?sort=cott_per_night")
@@ -139,6 +139,21 @@ describe.only("app", () => {
                 .get("/api/properties?minprice=dog")
                 .expect(400);
             expect(msg).toBe("Bad request.");
+        });
+    });
+    describe("/api/properties/:id/favourite", () => {
+
+        // -------> HAPPY PATH <--------
+        test("201 - ", async() => {
+            const { body } = await request(app)
+                .post("/api/properties/3/favourite")
+                .send({
+                    guest_id: 2
+                })
+                .expect(201);
+            console.log(body)
+            // expect().toBeObject();
+
         });
     });
 });
