@@ -7,7 +7,6 @@ exports.getProperties =  async(req, res, next) => {
         const properties = await fetchProperties(sort, order, host, maxprice, minprice);
         res.status(200).send(properties);
     } catch (err) {
-        // console.log(err);
         next(err);
     };
 };

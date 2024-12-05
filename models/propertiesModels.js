@@ -46,7 +46,7 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
         const maxMinOptions = [];
         if(maxprice) {
             maxMinOptions.push(`price_per_night <= $${params.length + 1}`);
-            params.push(Number(maxprice));
+            params.push(maxprice);
         };
         if(minprice) {
             maxMinOptions.push(`price_per_night >= $${params.length + 1}`);
@@ -63,7 +63,7 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
     queryStr += `ORDER BY ${sort} ${order};`;
 
     const { rows } = await db.query(queryStr, params);
-
+    
     if(rows.length === 0) {
         return Promise.reject({ status: 404, msg: "Resource not found." })
     };

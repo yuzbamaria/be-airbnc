@@ -16,3 +16,10 @@ exports.handleDbDataTypeErrors = (err, req, res, next) => {
     };
     next(err);
 };
+
+exports.handleForeignKeyVioletions = (err, req, res, next) => {
+    if(err.code === '23503') {
+        res.status(404).send({ msg: "Resource doesn't exist."});
+    };
+    next(err);
+};

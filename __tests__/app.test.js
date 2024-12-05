@@ -14,7 +14,7 @@ afterAll(() => {
     return db.end();
 });
 
-describe.only("app", () => {
+describe("app", () => {
     test("path not found", async() => {
         const { body: { msg } } = await request(app)
             .get("/invalid/endpoint")
@@ -121,13 +121,12 @@ describe.only("app", () => {
                 .expect(404);
             expect(msg).toBe("Resource not found.");
         });
-        // <----- BLOCKER ------->
-        // test("maxprice, 400 - bad request if invalid maxprice endpoint is provided", async() => {
-        //     const { body: { msg } } = await request(app)
-        //         .get("/api/properties?maxprice=dog")
-        //         .expect(400);
-        //     expect(msg).toBe("Bad request."); // <----- BLOCKER
-        // });
+        test("maxprice, 400 - bad request if invalid maxprice endpoint is provided", async() => {
+            const { body: { msg } } = await request(app)
+                .get("/api/properties?maxprice=dog")
+                .expect(400);
+            expect(msg).toBe("Bad request."); // <----- BLOCKER
+        });
         test("minprice, 404 - resource not found if valid, but non-existant host passed", async() => {
             const { body: { msg } } = await request(app)
                 .get("/api/properties?minprice=1000000")
@@ -144,16 +143,71 @@ describe.only("app", () => {
     describe("/api/properties/:id/favourite", () => {
 
         // -------> HAPPY PATH <--------
-        test("201 - ", async() => {
+        test("201 - returns an object", async() => {
             const { body } = await request(app)
                 .post("/api/properties/3/favourite")
-                .send({
-                    guest_id: 2
-                })
+                .send({guest_id: 2})
                 .expect(201);
-            console.log(body)
-            // expect().toBeObject();
+            expect(typeof body).toBe("object");
+        });
+        test("responds with correct favourite object props: msg, favourite_id", async() => {
+            const { body } = await request(app)
+                .post("/api/properties/3/favourite")
+                .send({guest_id: 2});
+            expect(body).toHaveProperty("msg");
+            expect(body).toHaveProperty("favourite_id");
+        });
+        test("inserts a new favourite object in db", async() => {
+            const favourite = {guest_id: 2}
+            await request(app)
+                .post("/api/properties/3/favourite")
+                .send(favourite);
+            const { rows } = await db.query(`
+                SELECT * FROM favourites
+                WHERE guest_id = $1`, [favourite.guest_id]);
+            expect(rows[0]).toEqual(expect.objectContaining(favourite));
+        });
 
+        // -------> SAD PATH <--------
+        // later - if no property_id is passed 
+        // later - if no user_id is passed 
+        test("400 - bad request, when guest_id is invalid data type", async() => {
+            const { body: { msg } } = await request(app)
+                .post("/api/properties/3/favourite")
+                .send({guest_id: "meow"})
+                .expect(400);
+            expect(msg).toBe("Bad request.");
+        });
+        test("404 - guest not found when the role of id belongs to other, host, role", async() => {
+            const { body } = await request(app)
+                .post("/api/properties/3/favourite")
+                .send({guest_id: 3})
+                .expect(404);
+            // console.log(body.msg)
+            expect(body.msg).toBe("Guest not found")
+        });
+        test("400 - if invalid data type of property id query is passed in url", async() => {
+            const { body: { msg } } = await request(app)
+                .post("/api/properties/khgksydtfiys/favourite")
+                .send({guest_id: 4})
+                .expect(400);
+            expect(msg).toBe("Bad request.");
+        });
+        test("404 - if valid, but non-existant property id query is passed in url", async() => {
+            const { body: { msg } } = await request(app)
+                .post("/api/properties/3000/favourite")
+                .send({guest_id: 2})
+                .expect(404);
+            expect(msg).toBe("Resource doesn't exist.");
+        });
+        test("409 - if guest_id has already favourited the property_id", async() => {
+            await db.query(`INSERT INTO favourites (guest_id, property_id) VALUES (2, 3);`);
+            
+            const { body: { msg } } = await request(app)
+                .post("/api/properties/3/favourite")
+                .send({guest_id: 2})
+                .expect(409);
+            expect(msg).toBe("You've already favourited this property.")
         });
     });
 });

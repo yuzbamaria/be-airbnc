@@ -9,10 +9,9 @@ exports.createFavouriteById = async(req, res, next) => {
             guest_id, 
             property_id
         );
-        console.log(favourite)
         res.status(201).send(favourite);
     } catch (err) {
-        console.log(err);
+        next(err);
     };
 
 };
