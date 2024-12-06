@@ -225,6 +225,17 @@ describe("app", () => {
         });
 
         // -------> SAD PATH <--------
-        
+        test("404 - Favourite not found if non existent id passed ", async() => {
+            const { body: { msg } } = await request(app)
+                .delete("/api/favourites/12")
+                .expect(404);
+            expect(msg).toBe("Favourite not found.");
+        });
+        test("400 - Bad request if invalid id passed ", async() => {
+            const { body: { msg } } = await request(app)
+                .delete("/api/favourites/bkugsdf")
+                .expect(400);
+            expect(msg).toBe("Bad request.");
+        });
     });
 });
