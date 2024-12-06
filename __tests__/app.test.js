@@ -21,7 +21,7 @@ describe("app", () => {
             .expect(404);
         expect(msg).toBe("Path not found.");
     });
-    describe("/api/properties", () => {
+    describe("GET /api/properties", () => {
         
         // -------> HAPPY PATH <--------
         test("200 - responds with an array of objects and props: property_id, property_name, location, price_per_night, host(<full name>)", async() => {
@@ -140,7 +140,7 @@ describe("app", () => {
             expect(msg).toBe("Bad request.");
         });
     });
-    describe("/api/properties/:id/favourite", () => {
+    describe("POST /api/properties/:id/favourite", () => {
 
         // -------> HAPPY PATH <--------
         test("201 - returns an object", async() => {
@@ -209,5 +209,22 @@ describe("app", () => {
                 .expect(409);
             expect(msg).toBe("You've already favourited this property.")
         });
+    });
+    describe("DELETE /api/favourites/:id", () => {
+
+        // -------> HAPPY PATH <--------
+        test("204 - successfully deletes a row with a status 204 No Content", async() => {
+            await request(app)
+                .delete("/api/favourites/2")
+                .expect(204);
+        });
+        test("responds with no body", async() => {
+            const result = await request(app)
+                .delete("/api/favourites/2");
+            expect(result.body).toEqual({});
+        });
+
+        // -------> SAD PATH <--------
+        
     });
 });
