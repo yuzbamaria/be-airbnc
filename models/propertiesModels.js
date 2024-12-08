@@ -93,6 +93,7 @@ exports.fetchProperty = async(property_id, user_id) => {
             properties.price_per_night,
             properties.description,
             CONCAT(users.first_name, ' ', users.surname) as host,
+            users.avatar as host_avatar,
             COUNT(favourites.favourite_id) as favourite_count
         FROM properties
         JOIN users ON properties.host_id = users.user_id
@@ -114,23 +115,21 @@ exports.fetchProperty = async(property_id, user_id) => {
         };
     };
 
-    queryStr += `GROUP BY properties.property_id, users.first_name, users.surname;`;
+    queryStr += `GROUP BY 
+        properties.property_id, 
+        users.first_name, 
+        users.surname, 
+        users.avatar;`;
 
     const { rows } = await db.query(queryStr, params);
     const property = rows[0];
-    const updatedProperty = { 
-        ...property, 
-        host_avatar: "image_url_placeholder", 
-    };
-    
     if (user_id) {
-        updatedProperty.favourited = favourited;
+        property.favourited = favourited;
     };
-
-    return { property: updatedProperty };
+    return { property: property };
 };
 
-// this.fetchProperty(3, 4).then((result) => console.log(result));
+this.fetchProperty(3).then((result) => console.log(result));
 
 
 
