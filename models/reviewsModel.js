@@ -26,8 +26,6 @@ exports.fetchReviews = async(property_id) => {
     return {...reviews, average_rating: averageRating}
 };
 
-// this.fetchReviews(3).then(result => console.log(result));
-
 exports.createReview = async(property_id, guest_id, rating, comment) => {
     const queryStr = `
         INSERT INTO reviews
@@ -38,4 +36,10 @@ exports.createReview = async(property_id, guest_id, rating, comment) => {
     return rows[0];
 };
 
-// this.createReview(3, 2, 40, "hello").then(result => console.log(result))
+exports.removeReview = async(property_id) => {
+    const queryStr = `DELETE FROM reviews WHERE property_id = $1 RETURNING *;`;
+    const result = await db.query(queryStr, [property_id]);
+    if (result.rowCount === 0) {
+        return Promise.reject({ status: 404, msg: "Review not found."});
+    };
+};

@@ -1,4 +1,4 @@
-const { fetchReviews, createReview } = require("../models/reviewsModel");
+const { fetchReviews, createReview, removeReview } = require("../models/reviewsModel");
 
 exports.getReviews = async(req, res, next) => {
     const { id: property_id } = req.params;
@@ -17,6 +17,17 @@ exports.addReview = async(req, res, next) => {
         const review = await createReview(property_id, guest_id, rating, comment);
         res.status(201).send(review);
     } catch (err) {
+        next(err);
+    };
+};
+
+exports.deleteReview = async(req, res, next) => {
+    const { id: property_id } = req.params;
+    try {
+        await removeReview(property_id);
+        res.status(204).send();
+    } catch(err) {
+        console.log(err)
         next(err);
     };
 };

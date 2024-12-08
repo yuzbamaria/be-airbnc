@@ -303,6 +303,34 @@ describe("app", () => {
             });
         });
     });
+    describe("DELETE /api/properties/:id/reviews", () => {
+        describe("HAPPY PATH", () => {
+            test("204 - successfully deletes a row with a status 204 No Content", async() => {
+                await request(app)
+                    .delete("/api/properties/6/reviews")
+                    .expect(204);
+            });
+            test("responds with no body", async() => {
+                const result = await request(app)
+                    .delete("/api/properties/6/reviews");
+                expect(result.body).toEqual({});
+            });
+        });
+        describe("SAD PATH", () => {
+            test("404 - Review not found if non existent id passed ", async() => {
+                const { body: { msg } } = await request(app)
+                    .delete("/api/properties/60/reviews")
+                    .expect(404);
+                expect(msg).toBe("Review not found.");
+            });
+            test("400 - Bad request if invalid id passed ", async() => {
+                const { body: { msg } } = await request(app)
+                    .delete("/api/properties/huyw/reviews")
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+        });
+    });
     describe("POST /api/properties/:id/favourite", () => {
         describe("HAPPY PATH", () => {
             test("201 - returns an object", async() => {
@@ -373,31 +401,32 @@ describe("app", () => {
         });
     });
     describe("DELETE /api/favourites/:id", () => {
-
-        // -------> HAPPY PATH <--------
-        test("204 - successfully deletes a row with a status 204 No Content", async() => {
-            await request(app)
-                .delete("/api/favourites/2")
-                .expect(204);
+        describe("HAPPY PATH", () => {
+            test("204 - successfully deletes a row with a status 204 No Content", async() => {
+                await request(app)
+                    .delete("/api/favourites/2")
+                    .expect(204);
+            });
+            test("responds with no body", async() => {
+                const result = await request(app)
+                    .delete("/api/favourites/2");
+                expect(result.body).toEqual({});
+            });
         });
-        test("responds with no body", async() => {
-            const result = await request(app)
-                .delete("/api/favourites/2");
-            expect(result.body).toEqual({});
+        describe("SAD PATH", () => {
+            test("404 - Favourite not found if non existent id passed ", async() => {
+                const { body: { msg } } = await request(app)
+                    .delete("/api/favourites/12")
+                    .expect(404);
+                expect(msg).toBe("Favourite not found.");
+            });
+            test("400 - Bad request if invalid id passed ", async() => {
+                const { body: { msg } } = await request(app)
+                    .delete("/api/favourites/bkugsdf")
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
         });
-
-        // -------> SAD PATH <--------
-        test("404 - Favourite not found if non existent id passed ", async() => {
-            const { body: { msg } } = await request(app)
-                .delete("/api/favourites/12")
-                .expect(404);
-            expect(msg).toBe("Favourite not found.");
-        });
-        test("400 - Bad request if invalid id passed ", async() => {
-            const { body: { msg } } = await request(app)
-                .delete("/api/favourites/bkugsdf")
-                .expect(400);
-            expect(msg).toBe("Bad request.");
-        });
+        
     });
 });
