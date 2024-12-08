@@ -122,14 +122,15 @@ exports.fetchProperty = async(property_id, user_id) => {
         users.avatar;`;
 
     const { rows } = await db.query(queryStr, params);
+    if(rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "Resource not found." })
+    };
     const property = rows[0];
     if (user_id) {
         property.favourited = favourited;
     };
     return { property: property };
 };
-
-this.fetchProperty(3).then((result) => console.log(result));
 
 
 

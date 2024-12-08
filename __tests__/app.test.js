@@ -140,7 +140,7 @@ describe("app", () => {
             expect(msg).toBe("Bad request.");
         });
     });
-    describe.only("GET /api/properties/:id", () => {
+    describe("GET /api/properties/:id", () => {
         
         // -------> HAPPY PATH <--------
         test("200 - responds an array of property object", async() => {
@@ -167,12 +167,11 @@ describe("app", () => {
             expect(property).toHaveProperty('favourited');
         });
         // -------> SAD PATH <--------
-        // -------> BLOCKER <--------
         test("404 - Property not found if non-existant property_id is passed", async() => {
-            const { body: { property } } = await request(app)
-                .get("/api/properties/10000");
-            console.log(property.property_name)
-            console.log(property)
+            const { body: { msg } } = await request(app)
+                .get("/api/properties/10000")
+                .expect(404);
+            expect(msg).toBe("Resource not found.")
         });
         test("400 - Bad request if invalid property_id is passed", async() => {
             const { body: { msg } } = await request(app)
@@ -180,12 +179,11 @@ describe("app", () => {
                 .expect(400);
             expect(msg).toBe("Bad request.");
         });
-        // -------> BLOCKER <--------
         test("404 - Property not found if non-existant user_id is passed", async() => {
-            const { body: { property } } = await request(app)
-                .get("/api/properties/1?user_id=1000");
-            console.log(property)
-            console.log(property.property_name)
+            const { body: { msg } } = await request(app)
+                .get("/api/properties/1?user_id=1000")
+                .expect(404);
+            expect(msg).toBe("Resource not found.")
         });
         test("400 - Bad request if invalid user_id is passed", async() => {
             const { body: { msg } } = await request(app)
