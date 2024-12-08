@@ -9,7 +9,7 @@ const {
 const { getProperties, getProperty } = require("./controllers/propertiesController");
 const { createFavouriteById, deleteFavourite } = require("./controllers/favouriteController");
 const { getReviews, addReview, deleteReview } = require("./controllers/reviewsController");
-const { getUser } = require("./controllers/usersController");
+const { getUser, updateUser } = require("./controllers/usersController");
 
 app.use(express.json());
 
@@ -23,6 +23,7 @@ app.delete("/api/properties/:id/reviews", deleteReview);
 app.delete("/api/favourites/:id", deleteFavourite);
 
 app.get("/api/users/:id", getUser);
+app.patch("/api/users/:id", updateUser);
 
 app.all("/*", handlePathNotFound); // catch-all
 

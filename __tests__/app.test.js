@@ -465,4 +465,64 @@ describe("app", () => {
             });
         });
     });
+    describe("PATCH /api/users/:id", () => {
+        describe("HAPPY PATH", () => {
+            test("200 - responds with user object", async() => {
+                const { body } = await request(app)
+                    .patch("/api/users/2")
+                    .send({first_name: "new name"})
+                    .expect(200);
+                expect(typeof body).toBe("object")
+            });
+            test("responds with user object first_name prop updated", async() => {
+                const updatedProp = "updated first name";
+                const { body } = await request(app)
+                    .patch("/api/users/1")
+                    .send({first_name: updatedProp});
+                const { rows } = await db.query(`SELECT * FROM users WHERE user_id = $1`, [1]);
+                const updatedName = rows[0].first_name;
+                expect(body.first_name).toBe(updatedName);
+            });
+            test("responds with user object phone and surname props updated", async() => {
+                const newSurname = "updated surname";
+                const newPhone = 123983744;
+                const { body } = await request(app)
+                    .patch("/api/users/1")
+                    .send({surname: newSurname, phone: newPhone});
+                const { rows } = await db.query(`SELECT * FROM users WHERE user_id = $1`, [1]);
+                const updatedSurname = rows[0].surname;
+                const updatedPhone = rows[0].phone;
+                expect(body.surname).toBe(updatedSurname);
+                expect(body.phone).toBe(updatedPhone);
+            });
+            test("responds with user object email and avatar props updated", async() => {
+                const newEmail = "new.email@gmail.com";
+                const newAvatar = "new_avatar_link";
+                const { body } = await request(app)
+                    .patch("/api/users/1")
+                    .send({email: newEmail, avatar: newAvatar});
+                const { rows } = await db.query(`SELECT * FROM users WHERE user_id = $1`, [1]);
+                const updatedEmail = rows[0].email;
+                const updatedAvatar = rows[0].avatar;
+                expect(body.email).toBe(updatedEmail);
+                expect(body.avatar).toBe(updatedAvatar);
+            });
+        });
+        describe("SAD PATH", () => {
+            test("400 - bad request, if invalid id is provided", async () => {
+                const { body: { msg } } = await request(app)
+                    .patch("/api/users/efeg")
+                    .send({first_name: "new name"})
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+            test("404 - user not found, if valid, but non-existent id passed", async () => {
+                const { body: { msg } } = await request(app)
+                    .patch("/api/users/2222")
+                    .send({surname: "new surname"})
+                    .expect(404);
+                expect(msg).toBe("User not found.");
+            });
+        });
+    });
 });
