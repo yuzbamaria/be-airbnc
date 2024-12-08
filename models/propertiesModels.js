@@ -1,4 +1,4 @@
-const { query } = require("express");
+// const { query } = require("express");
 const db = require("../db/connection");
 const { lookUpHosts, mapHostKey, orderProperties } = require("./utilsForModels");
 
@@ -94,11 +94,15 @@ exports.fetchProperty = async(property_id, user_id) => {
             properties.description,
             CONCAT(users.first_name, ' ', users.surname) as host,
             users.avatar as host_avatar,
-            COUNT(favourites.favourite_id) as favourite_count
+            COUNT(favourites.favourite_id) as favourite_count,
+            images.image_url as image
         FROM properties
-        JOIN users ON properties.host_id = users.user_id
+        JOIN users ON 
+            properties.host_id = users.user_id
         LEFT JOIN favourites ON
             properties.property_id = favourites.property_id
+        JOIN images ON 
+            properties.property_id = images.property_id
         WHERE properties.property_id = $1`;
     
     let favourited;
@@ -119,7 +123,8 @@ exports.fetchProperty = async(property_id, user_id) => {
         properties.property_id, 
         users.first_name, 
         users.surname, 
-        users.avatar;`;
+        users.avatar,
+        images.image_url;`;
 
     const { rows } = await db.query(queryStr, params);
     if(rows.length === 0) {
@@ -131,6 +136,8 @@ exports.fetchProperty = async(property_id, user_id) => {
     };
     return { property: property };
 };
+
+// this.fetchProperty(1, 2).then((result) => console.log(result))
 
 
 

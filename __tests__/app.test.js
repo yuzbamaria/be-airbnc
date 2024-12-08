@@ -143,7 +143,7 @@ describe("app", () => {
     describe("GET /api/properties/:id", () => {
         
         // -------> HAPPY PATH <--------
-        test("200 - responds an array of property object", async() => {
+        test("200 - responds with object property ", async() => {
             const { body: { property } } = await request(app)
                 .get("/api/properties/2")
                 .expect(200);
@@ -160,6 +160,7 @@ describe("app", () => {
             expect(property).toHaveProperty("host");
             expect(property).toHaveProperty("host_avatar");
             expect(property).toHaveProperty("favourite_count");
+            expect(property).toHaveProperty("image");
         });
         test("?user_id=<id> - responds with favourited property if optional user_id is passed in url", async() => {
             const { body: { property } } = await request(app)
@@ -190,6 +191,47 @@ describe("app", () => {
                 .get("/api/properties/1?user_id=itiiewr")
                 .expect(400);
             expect(msg).toBe("Bad request.");
+        });
+    });
+    describe("GET /api/properties/:id/reviews", () => {
+        describe("HAPPY PATH", () => {
+            test("200 - responds with an array of reviews objects", async() => {
+                const { body: { reviews } } = await request(app)
+                    .get("/api/properties/1/reviews")
+                    .expect(200);
+                expect(Array.isArray(reviews)).toBe(true);
+            });
+            test("responds with reviews objects, having properties as below", async() => {
+                const { body: { reviews } } = await request(app)
+                    .get("/api/properties/1/reviews");
+                expect(reviews[0]).toHaveProperty("review_id");
+                expect(reviews[0]).toHaveProperty("comment");
+                expect(reviews[0]).toHaveProperty("rating");
+                expect(reviews[0]).toHaveProperty("created_at");
+                expect(reviews[0]).toHaveProperty("guest");
+                expect(reviews[0]).toHaveProperty("guest_avatar");
+            });
+            //test for desc order (clarify time creation postgreSQL)
+            test("response body contains average_rating prop", async() => {
+                const { body } = await request(app)
+                    .get("/api/properties/1/reviews");
+                expect(body).toHaveProperty("average_rating");
+            });
+        });
+        describe("SAD PATH", () => {
+            // UPDATE FOR 200
+            // test("404 - Property not found if non-existant property_id is passed", async() => {
+            //     const { body: { msg } } = await request(app)
+            //         .get("/api/properties/59326/reviews")
+            //         .expect(404);
+            //     expect(msg).toBe("Resource not found.")
+            // });
+            test("400 - Bad request if invalid property_id is passed", async() => {
+                const { body: { msg } } = await request(app)
+                    .get("/api/properties/jfjyt/reviews")
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
         });
     });
     describe("POST /api/properties/:id/favourite", () => {
