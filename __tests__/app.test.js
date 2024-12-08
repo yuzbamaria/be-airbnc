@@ -234,74 +234,142 @@ describe("app", () => {
             });
         });
     });
+    describe("POST /api/properties/:id/reviews", () => {
+        describe("HAPPY PATH", () => {
+            test("201 - returns an object", async() => {
+                const { body } = await request(app)
+                    .post("/api/properties/3/reviews")
+                    .send({guest_id: 2, rating: 40, comment: "hello"})
+                    .expect(201);
+                expect(typeof body).toBe("object");
+            });
+            test("responds with correct review object props: msg, favourite_id", async() => {
+                const { body } = await request(app)
+                    .post("/api/properties/3/reviews")
+                    .send({guest_id: 2, rating: 40, comment: "hello"});
+                expect(body).toHaveProperty("review_id");
+                expect(body).toHaveProperty("property_id");
+                expect(body).toHaveProperty("guest_id");
+                expect(body).toHaveProperty("rating");
+                expect(body).toHaveProperty("comment");
+                expect(body).toHaveProperty("created_at");
+            });
+            test("inserts a new review object in db", async() => {
+                const review = {guest_id: 4, rating: 40, comment: "boo"};
+                await request(app)
+                    .post("/api/properties/3/reviews")
+                    .send(review);
+                const { rows } = await db.query(`
+                    SELECT * FROM reviews
+                    WHERE comment = $1`, [review.comment]);
+                expect(rows[0]).toEqual(expect.objectContaining(review));
+            });
+        });
+        describe("SAD PATH", () => {
+            test("400 - bad request, when guest_id is invalid data type", async() => {
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/3/reviews")
+                    .send({guest_id: "dfgs", rating: 40, comment: "boo"})
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+            test("400 - bad request, when rating is invalid data type", async() => {
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/3/reviews")
+                    .send({guest_id: 6, rating: "gdser", comment: "boo"})
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+            test("400 - bad request, when property_id is invalid data type", async() => {
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/kgkut/reviews")
+                    .send({guest_id: 6, rating: 20, comment: "boo"})
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+            test("404 - if valid, but non-existant property_id query is passed in url", async() => {
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/3000/reviews")
+                    .send({guest_id: 6, rating: 20, comment: "boo"})
+                    .expect(404);
+                expect(msg).toBe("Resource doesn't exist.");
+            });
+            test("404 - if valid, but non-existant guest_id is passed", async() => {
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/3/reviews")
+                    .send({guest_id: 600, rating: 20, comment: "boo"})
+                    .expect(404);
+                expect(msg).toBe("Resource doesn't exist.");
+            });
+        });
+    });
     describe("POST /api/properties/:id/favourite", () => {
-
-        // -------> HAPPY PATH <--------
-        test("201 - returns an object", async() => {
-            const { body } = await request(app)
-                .post("/api/properties/3/favourite")
-                .send({guest_id: 2})
-                .expect(201);
-            expect(typeof body).toBe("object");
+        describe("HAPPY PATH", () => {
+            test("201 - returns an object", async() => {
+                const { body } = await request(app)
+                    .post("/api/properties/3/favourite")
+                    .send({guest_id: 2})
+                    .expect(201);
+                expect(typeof body).toBe("object");
+            });
+            test("responds with correct favourite object props: msg, favourite_id", async() => {
+                const { body } = await request(app)
+                    .post("/api/properties/3/favourite")
+                    .send({guest_id: 2});
+                expect(body).toHaveProperty("msg");
+                expect(body).toHaveProperty("favourite_id");
+            });
+            test("inserts a new favourite object in db", async() => {
+                const favourite = {guest_id: 2}
+                await request(app)
+                    .post("/api/properties/3/favourite")
+                    .send(favourite);
+                const { rows } = await db.query(`
+                    SELECT * FROM favourites
+                    WHERE guest_id = $1`, [favourite.guest_id]);
+                expect(rows[0]).toEqual(expect.objectContaining(favourite));
+            });
         });
-        test("responds with correct favourite object props: msg, favourite_id", async() => {
-            const { body } = await request(app)
-                .post("/api/properties/3/favourite")
-                .send({guest_id: 2});
-            expect(body).toHaveProperty("msg");
-            expect(body).toHaveProperty("favourite_id");
-        });
-        test("inserts a new favourite object in db", async() => {
-            const favourite = {guest_id: 2}
-            await request(app)
-                .post("/api/properties/3/favourite")
-                .send(favourite);
-            const { rows } = await db.query(`
-                SELECT * FROM favourites
-                WHERE guest_id = $1`, [favourite.guest_id]);
-            expect(rows[0]).toEqual(expect.objectContaining(favourite));
-        });
-
-        // -------> SAD PATH <--------
-        // later - if no property_id is passed 
-        // later - if no user_id is passed 
-        test("400 - bad request, when guest_id is invalid data type", async() => {
-            const { body: { msg } } = await request(app)
-                .post("/api/properties/3/favourite")
-                .send({guest_id: "meow"})
-                .expect(400);
-            expect(msg).toBe("Bad request.");
-        });
-        test("404 - guest not found when the role of id belongs to other, host, role", async() => {
-            const { body } = await request(app)
-                .post("/api/properties/3/favourite")
-                .send({guest_id: 3})
-                .expect(404);
-            // console.log(body.msg)
-            expect(body.msg).toBe("Guest not found")
-        });
-        test("400 - if invalid data type of property id query is passed in url", async() => {
-            const { body: { msg } } = await request(app)
-                .post("/api/properties/khgksydtfiys/favourite")
-                .send({guest_id: 4})
-                .expect(400);
-            expect(msg).toBe("Bad request.");
-        });
-        test("404 - if valid, but non-existant property id query is passed in url", async() => {
-            const { body: { msg } } = await request(app)
-                .post("/api/properties/3000/favourite")
-                .send({guest_id: 2})
-                .expect(404);
-            expect(msg).toBe("Resource doesn't exist.");
-        });
-        test("409 - if guest_id has already favourited the property_id", async() => {
-            await db.query(`INSERT INTO favourites (guest_id, property_id) VALUES (2, 3);`);
-            
-            const { body: { msg } } = await request(app)
-                .post("/api/properties/3/favourite")
-                .send({guest_id: 2})
-                .expect(409);
-            expect(msg).toBe("You've already favourited this property.")
+        describe("SAD PATH", () => {
+            // later - if no property_id is passed 
+            // later - if no user_id is passed 
+            test("400 - bad request, when guest_id is invalid data type", async() => {
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/3/favourite")
+                    .send({guest_id: "meow"})
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+            test("404 - guest not found when the role of id belongs to other, host, role", async() => {
+                const { body } = await request(app)
+                    .post("/api/properties/3/favourite")
+                    .send({guest_id: 3})
+                    .expect(404);
+                expect(body.msg).toBe("Guest not found")
+            });
+            test("400 - if invalid data type of property id query is passed in url", async() => {
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/khgksydtfiys/favourite")
+                    .send({guest_id: 4})
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+            test("404 - if valid, but non-existant property id query is passed in url", async() => {
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/3000/favourite")
+                    .send({guest_id: 2})
+                    .expect(404);
+                expect(msg).toBe("Resource doesn't exist.");
+            });
+            test("409 - if guest_id has already favourited the property_id", async() => {
+                await db.query(`INSERT INTO favourites (guest_id, property_id) VALUES (2, 3);`);
+                
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/3/favourite")
+                    .send({guest_id: 2})
+                    .expect(409);
+                expect(msg).toBe("You've already favourited this property.")
+            });
         });
     });
     describe("DELETE /api/favourites/:id", () => {

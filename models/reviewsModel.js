@@ -27,3 +27,15 @@ exports.fetchReviews = async(property_id) => {
 };
 
 // this.fetchReviews(3).then(result => console.log(result));
+
+exports.createReview = async(property_id, guest_id, rating, comment) => {
+    const queryStr = `
+        INSERT INTO reviews
+        (property_id, guest_id, rating, comment)
+        VALUES ($1, $2, $3, $4)
+        RETURNING *;`;
+    const { rows } = await db.query(queryStr, [property_id, guest_id, rating, comment]);
+    return rows[0];
+};
+
+// this.createReview(3, 2, 40, "hello").then(result => console.log(result))

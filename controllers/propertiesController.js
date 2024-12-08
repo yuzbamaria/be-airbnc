@@ -18,7 +18,6 @@ exports.getProperty = async(req, res, next) => {
         const property = await fetchProperty(property_id, user_id);
         res.status(200).send(property);
     } catch(err) {
-        console.log(err)
         next(err);
     };
 };
