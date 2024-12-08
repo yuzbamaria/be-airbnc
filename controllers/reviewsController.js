@@ -27,7 +27,6 @@ exports.deleteReview = async(req, res, next) => {
         await removeReview(property_id);
         res.status(204).send();
     } catch(err) {
-        console.log(err)
         next(err);
     };
 };
