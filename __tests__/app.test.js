@@ -140,6 +140,60 @@ describe("app", () => {
             expect(msg).toBe("Bad request.");
         });
     });
+    describe.only("GET /api/properties/:id", () => {
+        
+        // -------> HAPPY PATH <--------
+        test("200 - responds an array of property object", async() => {
+            const { body: { property } } = await request(app)
+                .get("/api/properties/2")
+                .expect(200);
+            expect(typeof property).toBe("object")
+        });
+        test("responds with property object, having properties as below", async() => {
+            const { body: { property } } = await request(app)
+                .get("/api/properties/1");
+            expect(property).toHaveProperty("property_id");
+            expect(property).toHaveProperty("property_name");
+            expect(property).toHaveProperty("location");
+            expect(property).toHaveProperty("price_per_night");
+            expect(property).toHaveProperty("description");
+            expect(property).toHaveProperty("host");
+            expect(property).toHaveProperty("host_avatar");
+            expect(property).toHaveProperty("favourite_count");
+        });
+        test("?user_id=<id> - responds with favourited property if optional user_id is passed in url", async() => {
+            const { body: { property } } = await request(app)
+                .get("/api/properties/3?user_id=4");
+            expect(property).toHaveProperty('favourited');
+        });
+        // -------> SAD PATH <--------
+        // -------> BLOCKER <--------
+        test("404 - Property not found if non-existant property_id is passed", async() => {
+            const { body: { property } } = await request(app)
+                .get("/api/properties/10000");
+            console.log(property.property_name)
+            console.log(property)
+        });
+        test("400 - Bad request if invalid property_id is passed", async() => {
+            const { body: { msg } } = await request(app)
+                .get("/api/properties/jfjyt")
+                .expect(400);
+            expect(msg).toBe("Bad request.");
+        });
+        // -------> BLOCKER <--------
+        test("404 - Property not found if non-existant user_id is passed", async() => {
+            const { body: { property } } = await request(app)
+                .get("/api/properties/1?user_id=1000");
+            console.log(property)
+            console.log(property.property_name)
+        });
+        test("400 - Bad request if invalid user_id is passed", async() => {
+            const { body: { msg } } = await request(app)
+                .get("/api/properties/1?user_id=itiiewr")
+                .expect(400);
+            expect(msg).toBe("Bad request.");
+        });
+    });
     describe("POST /api/properties/:id/favourite", () => {
 
         // -------> HAPPY PATH <--------

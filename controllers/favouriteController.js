@@ -13,7 +13,7 @@ exports.createFavouriteById = async(req, res, next) => {
 };
 
 exports.deleteFavourite = async(req, res, next) => {
-    const { id: favourite_id} = req.params;
+    const { id: favourite_id } = req.params;
     try {
         await removeFavourite(favourite_id);
         res.status(204).send();

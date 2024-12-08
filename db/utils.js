@@ -14,6 +14,7 @@ exports.lookUpProperties = (insertData) => {
     return refObjs;
 };
 
+
 exports.formatData = (refObjs, keyToRemove, keyToAdd, rawData) => {
     return rawData.map(({ [keyToRemove]: removedKey , ...row }) => {
         return { ...row, [keyToAdd]: refObjs[removedKey]  };

@@ -1,7 +1,7 @@
 const db = require("./connection.js");
 const format = require("pg-format");
 
-async function insertUsers(users) {
+exports.insertUsers = async(users) => {
     const formattedUsers = users.map(({ 
         first_name, 
         surname, 
@@ -16,7 +16,7 @@ async function insertUsers(users) {
     return await db.query(format(queryStr, formattedUsers));
 };
 
-async function insertPropertyTypes(propertyTypes) {
+exports.insertPropertyTypes = async(propertyTypes) => {
     const formattedPropertyTypes = propertyTypes.map(({ 
         property_type,
         description 
@@ -27,7 +27,7 @@ async function insertPropertyTypes(propertyTypes) {
     return await db.query(format(queryStr, formattedPropertyTypes));
 };
 
-async function insertProperties(properties) {
+exports.insertProperties = async(properties) => {
     const queryStr = `INSERT INTO properties
         (host_id,
         name, 
@@ -39,7 +39,7 @@ async function insertProperties(properties) {
     return await db.query(format(queryStr, properties));
 };
 
-async function insertFavourites(favourites) {
+exports.insertFavourites = async(favourites) => {
     const formattedFavourites = favourites.map((favourite) => {
         return [
             favourite.guest_id,
@@ -53,7 +53,7 @@ async function insertFavourites(favourites) {
     return await db.query(format(queryStr, formattedFavourites));
 };
 
-async function insertReviews(reviews) {
+exports.insertReviews = async(reviews) => {
     const queryStr = `INSERT INTO reviews
         (property_id,
         guest_id, 
@@ -61,7 +61,20 @@ async function insertReviews(reviews) {
         comment)
         VALUES %L RETURNING *;`;
     return await db.query(format(queryStr, reviews))
+};
 
-}
+exports.insertImages = async(images) => {
+    const formattedImages = images.map((image) => {
+        return [
+            image.property_id,
+            image.image_url,
+            image.alt_text
+        ];
+    });
+    const queryStr = `INSERT INTO images
+        (property_id, image_url, alt_text)
+        VALUES %L RETURNING *;`;
+    return await db.query(format(queryStr, formattedImages))
+};
 
-module.exports = { insertUsers, insertPropertyTypes, insertProperties, insertFavourites, insertReviews };
+// module.exports = { insertUsers, insertPropertyTypes, insertProperties, insertFavourites, insertReviews,  };

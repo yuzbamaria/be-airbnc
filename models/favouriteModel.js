@@ -9,7 +9,7 @@ exports.postFavouriteById = async(guest_id, property_id) => {
         return Promise.reject({ status: 404, msg: "Guest not found"});
     };
 
-    // validate property_id hasn't been added  yet to favourites by user_id
+    // validate property_id hasn't been added yet to favourites by user_id
     const dbResult = await db.query(`SELECT * FROM favourites
         WHERE guest_id = $1 AND property_id = $2`, [guest_id, property_id]);
     if (dbResult.rows.length >= 1) {
@@ -38,5 +38,4 @@ exports.removeFavourite = async(favourite_id) => {
     };
 };
 
-// this.removeFavourite(6).then((result) => console.log(result))
 

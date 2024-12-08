@@ -6,7 +6,7 @@ const {
     handleDbDataTypeErrors, 
     handleForeignKeyVioletions 
 } = require("./errors/handleErrors");
-const { getProperties } = require("./controllers/propertiesController");
+const { getProperties, getProperty } = require("./controllers/propertiesController");
 const { createFavouriteById, deleteFavourite } = require("./controllers/favouriteController");
 
 app.use(express.json());
@@ -14,6 +14,7 @@ app.use(express.json());
 app.get("/api/properties", getProperties);
 app.post("/api/properties/:id/favourite", createFavouriteById);
 app.delete("/api/favourites/:id", deleteFavourite);
+app.get("/api/properties/:id", getProperty);
 app.all("/*", handlePathNotFound); // catch-all
 
 app.use(handleDbDataTypeErrors);

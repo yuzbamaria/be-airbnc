@@ -34,4 +34,10 @@ exports.createReviewsTable = `CREATE TABLE reviews (
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);`;
 
+exports.createImagesTable = `CREATE TABLE images (
+    image_id SERIAL PRIMARY KEY,
+    property_id INT NOT NULL REFERENCES properties(property_id),
+    image_url VARCHAR NOT NULL,
+    alt_text VARCHAR NOT NULL);`;
+
     

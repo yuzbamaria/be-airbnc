@@ -5,7 +5,8 @@ const  {
     insertPropertyTypes,
     insertProperties,
     insertFavourites, 
-    insertReviews
+    insertReviews,
+    insertImages
 } = require("./insert-data");
 
 const { 
@@ -19,7 +20,7 @@ const {
 } = require("./utils.js");
 
 
-async function seed({ users, propertyTypes, properties, favourites, reviews }) {
+async function seed({ users, propertyTypes, properties, favourites, reviews, images }) {
     
     // DROP AND CREATE TABLES
     await manageTables();  
@@ -59,6 +60,14 @@ async function seed({ users, propertyTypes, properties, favourites, reviews }) {
     const formattedReviews = formatData(propertyRef, "property_name", "property_id", formattedReviewsGuestsNames);
     const orderedReviews = orderReviews(formattedReviews);
     await insertReviews(orderedReviews);
+
+    // INSERT IMAGES TABLE
+    const formattedImages = formatData(propertyRef, "property_name", "property_id", images);
+    const updatedAltProp = formattedImages.map((image) => {
+        const { alt_tag, ...rest} = image;
+        return { ...rest, alt_text: alt_tag };
+    });
+    await insertImages(updatedAltProp);
 };
 
 module.exports = seed;
