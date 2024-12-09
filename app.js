@@ -18,7 +18,8 @@ app.post("/api/properties/:id/favourite", createFavouriteById);
 app.get("/api/properties/:id", getProperty);
 app.get("/api/properties/:id/reviews", getReviews);
 app.post("/api/properties/:id/reviews", addReview); 
-app.delete("/api/properties/:id/reviews", deleteReview);
+app.delete("/api/reviews/:id", deleteReview);
+
 
 app.delete("/api/favourites/:id", deleteFavourite);
 
