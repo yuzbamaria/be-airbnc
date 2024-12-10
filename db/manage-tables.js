@@ -11,8 +11,9 @@ const {
 async function manageTables() {
 
     // DROP TABLES
-    await db.query(`DROP TABLE IF EXISTS images;`)
+
     await db.query(`DROP TABLE IF EXISTS reviews;`);
+    await db.query(`DROP TABLE IF EXISTS images;`)
     await db.query(`DROP TABLE IF EXISTS favourites;`);
     await db.query(`DROP TABLE IF EXISTS properties;`);
     await Promise.all([

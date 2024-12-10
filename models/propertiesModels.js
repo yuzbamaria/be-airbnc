@@ -1,4 +1,3 @@
-// const { query } = require("express");
 const db = require("../db/connection");
 const { lookUpHosts, mapHostKey, orderProperties } = require("./utilsForModels");
 
@@ -25,12 +24,15 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
             properties.host_id,
             users.first_name,
             users.surname,
-            COUNT(favourites.favourite_id) as popularity
+            COUNT(favourites.favourite_id) AS popularity,
+            images.image_url AS image
         FROM properties
         JOIN users ON
             properties.host_id = users.user_id
         LEFT JOIN favourites ON
-            properties.property_id = favourites.property_id `;
+            properties.property_id = favourites.property_id
+        JOIN images ON
+            properties.property_id = images.property_id `;
 
     const params = [];
     if(host) {
@@ -59,7 +61,8 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
     queryStr += `GROUP BY
             properties.property_id,
             users.first_name,
-            users.surname `;
+            users.surname,
+            images.image_url `;
 
     queryStr += `ORDER BY ${sort} ${order};`;
 
@@ -136,8 +139,6 @@ exports.fetchProperty = async(property_id, user_id) => {
     };
     return { property: property };
 };
-
-// this.fetchProperty(1, 2).then((result) => console.log(result))
 
 
 
