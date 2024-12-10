@@ -55,11 +55,13 @@ describe("app", () => {
                         properties.host_id, 
                         users.first_name, 
                         users.surname, 
-                        COUNT(favourites.favourite_id) as popularity
+                        COUNT(favourites.favourite_id) as popularity,
+                        images.image_url AS image
                     FROM properties
                     JOIN users ON properties.host_id = users.user_id
                     LEFT JOIN favourites ON properties.property_id = favourites.property_id
-                    GROUP BY properties.property_id, users.first_name, users.surname
+                    JOIN images ON properties.property_id = images.property_id
+                    GROUP BY properties.property_id, users.first_name, users.surname, images.image_url
                     ORDER BY popularity ASC;
                 `);
                 const dbTestIds = dbTest.rows.map((row) => row.property_id);
@@ -160,7 +162,14 @@ describe("app", () => {
                 expect(property).toHaveProperty("host");
                 expect(property).toHaveProperty("host_avatar");
                 expect(property).toHaveProperty("favourite_count");
-                expect(property).toHaveProperty("image");
+                expect(property).toHaveProperty("images");
+            });
+            test("responds with property object having prop images as an array of objects with urls", async() => {
+                const { body: { property } } = await request(app)
+                    .get("/api/properties/1");
+                expect(typeof property.images[0]).toBe("object");
+                expect(Array.isArray(property.images)).toBe(true);
+                expect(property.images.length).toBeGreaterThan(0);
             });
             test("?user_id=<id> - responds with favourited property if optional user_id is passed in url", async() => {
                 const { body: { property } } = await request(app)

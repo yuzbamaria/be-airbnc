@@ -87,6 +87,20 @@ async function fetchFavouriteByUser(property_id, guest_id) {
     return rows;
 };
 
+async function fetchAllImagesById(property_id) {
+    const queryStr = `
+        SELECT 
+            images.image_url as image
+        FROM properties
+        JOIN users ON 
+            properties.host_id = users.user_id
+        JOIN images ON 
+            properties.property_id = images.property_id
+        WHERE properties.property_id = $1;`
+    const { rows } = await db.query(queryStr, [property_id]);
+    return rows;
+};
+
 exports.fetchProperty = async(property_id, user_id) => {
     let queryStr = `
         SELECT
@@ -98,7 +112,7 @@ exports.fetchProperty = async(property_id, user_id) => {
             CONCAT(users.first_name, ' ', users.surname) as host,
             users.avatar as host_avatar,
             COUNT(favourites.favourite_id) as favourite_count,
-            images.image_url as image
+            images.image_url as images
         FROM properties
         JOIN users ON 
             properties.host_id = users.user_id
@@ -114,9 +128,7 @@ exports.fetchProperty = async(property_id, user_id) => {
     if(user_id) {
         queryStr += ` AND favourites.guest_id = $2`;
         params.push(user_id);
-
         const favourites = await fetchFavouriteByUser(property_id, user_id);
-
         if (favourites.length > 0) {
             favourited = true;
         };
@@ -133,10 +145,15 @@ exports.fetchProperty = async(property_id, user_id) => {
     if(rows.length === 0) {
         return Promise.reject({ status: 404, msg: "Resource not found." })
     };
+    
     const property = rows[0];
     if (user_id) {
         property.favourited = favourited;
     };
+    
+    const allImages = await fetchAllImagesById(property_id);
+    property.images = allImages;
+ 
     return { property: property };
 };
 
