@@ -5,13 +5,14 @@ const {
     createPropertiesTable, 
     createFavouritesTable,
     createReviewsTable, 
-    createImagesTable
+    createImagesTable,
+    createBookingsTable
  } = require("./create-tables.js");
 
 async function manageTables() {
 
     // DROP TABLES
-
+    await db.query(`DROP TABLE IF EXISTS bookings;`);
     await db.query(`DROP TABLE IF EXISTS reviews;`);
     await db.query(`DROP TABLE IF EXISTS images;`)
     await db.query(`DROP TABLE IF EXISTS favourites;`);
@@ -30,6 +31,7 @@ async function manageTables() {
     await db.query(createFavouritesTable);
     await db.query(createReviewsTable);
     await db.query(createImagesTable);
+    await db.query(createBookingsTable);
 };
 
 module.exports = manageTables;

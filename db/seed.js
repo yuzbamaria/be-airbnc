@@ -6,7 +6,8 @@ const  {
     insertProperties,
     insertFavourites, 
     insertReviews,
-    insertImages
+    insertImages,
+    insertBookings
 } = require("./insert-data");
 
 const { 
@@ -16,20 +17,20 @@ const {
     orderProperties,
     selectHosts, 
     selectGuests,
-    orderReviews
+    orderReviews, 
+    orderBookings
 } = require("./utils.js");
 
 
-async function seed({ users, propertyTypes, properties, favourites, reviews, images }) {
+async function seed({ users, propertyTypes, properties, favourites, reviews, images, bookings }) {
     
     // DROP AND CREATE TABLES
     await manageTables();  
-    // try {
-    //     
-    //     console.log("Table created successfully.");
-    // } catch (err) {
-    //     console.error("Error creating table:", err);
-    // };
+    try {
+        console.log("Table created successfully.");
+    } catch (err) {
+        console.error("Error creating table:", err);
+    };
 
     // INSERT DATA
     // INSERT USERS TABLE
@@ -68,6 +69,16 @@ async function seed({ users, propertyTypes, properties, favourites, reviews, ima
         return { ...rest, alt_text: alt_tag };
     });
     await insertImages(updatedAltProp);
+
+    // INSERT BOOKINGS TABLE
+    const updatedBookingsIds = formatData(propertyRef, "property_name", "property_id", bookings);
+    // console.log(updatedBookingsIds)
+    const updatedBookings = formatData(guestRef, "guest_name", "guest_id", updatedBookingsIds);
+    // console.log(updatedBookings)
+    const orderedBookings = orderBookings(updatedBookings);
+    // console.log(orderedBookings)
+    await insertBookings(orderedBookings);
+
 };
 
 module.exports = seed;

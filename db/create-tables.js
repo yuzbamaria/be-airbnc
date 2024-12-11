@@ -40,4 +40,12 @@ exports.createImagesTable = `CREATE TABLE images (
     image_url VARCHAR NOT NULL,
     alt_text VARCHAR NOT NULL);`;
 
+exports.createBookingsTable = `CREATE TABLE bookings (
+    booking_id SERIAL PRIMARY KEY,
+    property_id INT NOT NULL REFERENCES properties(property_id),
+    guest_id INT NOT NULL REFERENCES users(user_id),
+    check_in_date DATE NOT NULL,
+    check_out_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);`;
+
     

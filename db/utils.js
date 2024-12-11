@@ -74,3 +74,20 @@ exports.orderReviews = (formattedReviews) => {
     ]);
     return orderedReviews;
 };
+
+exports.orderBookings = (updatedBookings) => {
+    const orderedBookings = updatedBookings.map(({
+        check_in_date,
+        check_out_date,
+        property_id, 
+        guest_id
+    }) => [
+        property_id,
+        guest_id,
+        check_in_date,
+        check_out_date
+    ]);
+    return orderedBookings;
+};
+
+

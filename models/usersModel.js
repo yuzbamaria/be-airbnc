@@ -43,4 +43,3 @@ exports.updatePropertiesOfUser = async(user_id, first_name, surname, email, phon
     };
     return rows[0];
 };
-// this.updatePropertiesOfUser(2, "Moooo", "BOOOOO", undefined, '1234567890', undefined, undefined).then(result => console.log(result));

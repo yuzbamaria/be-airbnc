@@ -77,4 +77,15 @@ exports.insertImages = async(images) => {
     return await db.query(format(queryStr, formattedImages))
 };
 
-// module.exports = { insertUsers, insertPropertyTypes, insertProperties, insertFavourites, insertReviews,  };
+exports.insertBookings = async(bookings) => {
+    const isPropertyFree = `
+        SELECT property_id FROM bookings
+        
+
+    `
+
+    const queryStr = `INSERT INTO bookings
+    (property_id, guest_id, check_in_date, check_out_date)
+    VALUES %L RETURNING *;`;
+    return await db.query(format(queryStr, bookings));
+};
