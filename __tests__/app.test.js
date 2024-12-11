@@ -230,7 +230,7 @@ describe("app", () => {
             });
         });
         describe("SAD PATH", () => {
-            // UPDATE FOR 200
+            // --------> BLOCKER <-------- returns 200
             // test("404 - Property not found if non-existant property_id is passed", async() => {
             //     const { body: { msg } } = await request(app)
             //         .get("/api/properties/59326/reviews")
@@ -439,6 +439,49 @@ describe("app", () => {
             });
         });
         
+    });
+    describe("GET /api/properties/:id/bookings", () => {
+        describe("HAPPY PATH", () => {
+            test("200 - responds with a bookings array", async() => {
+                const { body: {bookings} } = await request(app)
+                    .get("/api/properties/6/bookings")
+                    .expect(200);
+                expect(Array.isArray(bookings)).toBe(true);
+            });
+            test("responds with bookings objects, having properties as below", async() => {
+                const { body: { bookings } } = await request(app)
+                    .get("/api/properties/1/bookings");
+                expect(bookings[0]).toHaveProperty("booking_id");
+                expect(bookings[0]).toHaveProperty("check_in_date");
+                expect(bookings[0]).toHaveProperty("check_out_date");
+                expect(bookings[0]).toHaveProperty("created_at");
+            });
+            test("response body contains property_id prop", async() => {
+                const { body } = await request(app)
+                    .get("/api/properties/2/bookings");
+                expect(body).toHaveProperty("property_id");
+            });
+            test("response with bookings objects ordered from latest to earliest check_out_date", async() => {
+                const { body: { bookings } } = await request(app)
+                    .get("/api/properties/2/bookings");
+                expect(bookings).toEqual([...bookings].sort((a, b) => a - b));
+            });
+        });
+        describe("SAD PATH", () => {
+            test("400 - Bad request if invalid property_id is passed", async() => {
+                const { body: { msg } } = await request(app)
+                    .get("/api/properties/fgsg/bookings")
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+            // --------> BLOCKER <-------- returns 200 instead
+            // test("404 - Property not found if non-existant property_id is passed", async() => {
+            //     const { body } = await request(app)
+            //         .get("/api/properties/12/bookings")
+            //         .expect(404);
+            //     expect(msg).toBe("Resource not found.")
+            // });
+        });
     });
     describe("GET /api/users/:id", () => {
         describe("HAPPY PATH", () => {

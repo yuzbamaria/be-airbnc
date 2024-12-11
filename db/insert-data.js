@@ -78,12 +78,6 @@ exports.insertImages = async(images) => {
 };
 
 exports.insertBookings = async(bookings) => {
-    const isPropertyFree = `
-        SELECT property_id FROM bookings
-        
-
-    `
-
     const queryStr = `INSERT INTO bookings
     (property_id, guest_id, check_in_date, check_out_date)
     VALUES %L RETURNING *;`;
