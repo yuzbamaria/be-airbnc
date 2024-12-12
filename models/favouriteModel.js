@@ -32,7 +32,6 @@ exports.postFavouriteById = async(guest_id, property_id) => {
 exports.removeFavourite = async(favourite_id) => {
     const queryStr = `DELETE FROM favourites WHERE favourite_id = $1 RETURNING *;`;
     const result = await db.query(queryStr, [favourite_id]);
-
     if (result.rowCount === 0) {
         return Promise.reject({ status: 404, msg: "Favourite not found."});
     };

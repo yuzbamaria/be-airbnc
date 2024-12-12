@@ -438,7 +438,6 @@ describe("app", () => {
                 expect(msg).toBe("Bad request.");
             });
         });
-        
     });
     describe("GET /api/properties/:id/bookings", () => {
         describe("HAPPY PATH", () => {
@@ -531,7 +530,32 @@ describe("app", () => {
         });
     });
     describe("DELETE /api/bookings/:id", () => {
-        describe("")
+        describe("HAPPY PATH", () => {
+            test("204 - successfully deletes a row with a status 204 No Content", async() => {
+                await request(app)
+                    .delete("/api/bookings/2")
+                    .expect(204);
+            });
+            test("responds with no body", async() => {
+                const result = await request(app)
+                    .delete("/api/bookings/3");
+                expect(result.body).toEqual({});
+            });
+        });
+        describe("SAD PATH", () => {
+            test("404 - Booking not found if non existent id passed ", async() => {
+                const { body: { msg } } = await request(app)
+                    .delete("/api/bookings/15")
+                    .expect(404);
+                expect(msg).toBe("Booking not found.");
+            });
+            test("400 - Bad request if invalid id passed ", async() => {
+                const { body: { msg } } = await request(app)
+                    .delete("/api/bookings/njlgh")
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+        });
     });
     describe("GET /api/users/:id", () => {
         describe("HAPPY PATH", () => {
