@@ -483,6 +483,56 @@ describe("app", () => {
             // });
         });
     });
+    describe("POST /api/properties/:id/booking", () => {
+        describe("HAPPY PATH", () => {
+            test("201 - returns an object", async() => {
+                const { body } = await request(app)
+                    .post("/api/properties/2/booking")
+                    .send({
+                        guest_id: 4,
+                        check_in_date: "2026-12-10",
+                        check_out_date: "2026-12-15"
+                    })
+                    .expect(201);
+                expect(typeof body).toBe("object");
+            });
+            test("responds with correct booking object props: msg, booking_id", async() => {
+                const { body } = await request(app)
+                    .post("/api/properties/2/booking")
+                    .send({guest_id: 5,
+                        check_in_date: "2027-12-10",
+                        check_out_date: "2027-12-15"});
+                expect(body).toHaveProperty("msg");
+                expect(body).toHaveProperty("booking_id");
+            });
+            // test.only("inserts a new favourite object in db", async() => {
+            //     const booking = { guest_id: 5, check_in_date: "2027-12-10", check_out_date: "2027-12-15" };
+            //     await request(app)
+            //         .post("/api/properties/2/booking")
+            //         .send(booking);
+            //     const { rows } = await db.query(`
+            //         SELECT * FROM bookings
+            //         WHERE guest_id = $1`, [booking.guest_id]);
+            //     expect(rows[0]).toEqual(expect.objectContaining(booking));
+            // });
+        });
+        describe("SAD PATH", () => {
+            test("...", async() => {
+                const { body: { msg } } = await request(app)
+                    .post("/api/properties/2/booking")
+                    .send({
+                        guest_id: 3,
+                        check_in_date: "2025-12-10",
+                        check_out_date: "2025-12-15"
+                    })
+                    .expect(409);
+                expect(msg).toBe('Property is booked for these dates.');
+            });
+        });
+    });
+    describe("DELETE /api/bookings/:id", () => {
+        describe("")
+    });
     describe("GET /api/users/:id", () => {
         describe("HAPPY PATH", () => {
             test("200 - responds with user object", async() => {

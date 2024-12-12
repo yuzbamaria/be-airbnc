@@ -10,7 +10,7 @@ const { getProperties, getProperty } = require("./controllers/propertiesControll
 const { createFavouriteById, deleteFavourite } = require("./controllers/favouriteController");
 const { getReviews, addReview, deleteReview } = require("./controllers/reviewsController");
 const { getUser, updateUser } = require("./controllers/usersController");
-const { getBookings } = require("./controllers/bookingsController");
+const { getBookings, addBooking, deleteBooking } = require("./controllers/bookingsController");
 
 app.use(express.json());
 
@@ -19,8 +19,12 @@ app.post("/api/properties/:id/favourite", createFavouriteById);
 app.get("/api/properties/:id", getProperty);
 app.get("/api/properties/:id/reviews", getReviews);
 app.post("/api/properties/:id/reviews", addReview);
-app.get("/api/properties/:id/bookings", getBookings); 
 app.delete("/api/reviews/:id", deleteReview);
+
+app.get("/api/properties/:id/bookings", getBookings);
+app.post("/api/properties/:id/booking", addBooking); 
+app.delete("/api/bookings/:id", deleteBooking);
+
 
 
 app.delete("/api/favourites/:id", deleteFavourite);
