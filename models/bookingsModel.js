@@ -61,3 +61,27 @@ exports.removeBooking = async(booking_id) => {
         return Promise.reject({ status: 404, msg: "Booking not found."});
     };
 };
+
+exports.editBooking = async(booking_id, check_in_date, check_out_date) => {
+    let queryStr = `UPDATE bookings SET `;
+    const params = [booking_id];
+    const payload = { check_in_date, check_out_date };
+
+    const definedProps = [];
+    let paramIndex = 2;
+
+    for (const key in payload) {
+        if(payload[key] !== undefined) {
+            definedProps.push(`${key} = $${paramIndex}`);
+            params.push(payload[key]);
+            paramIndex++;
+        };
+    };
+
+    queryStr += definedProps.join(', ') + `WHERE booking_id = $1 RETURNING *;`;
+    const { rows } = await db.query(queryStr, params);
+    if(rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "Booking not found." })
+    };
+    return rows[0];
+};

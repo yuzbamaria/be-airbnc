@@ -1,4 +1,4 @@
-const { fetchBookings, postBooking, removeBooking } = require("../models/bookingsModel");
+const { fetchBookings, postBooking, removeBooking, editBooking } = require("../models/bookingsModel");
 
 exports.getBookings = async(req, res, next) => {
     const { id: property_id } = req.params;
@@ -28,5 +28,17 @@ exports.deleteBooking = async(req, res, next) => {
         res.status(204).send();
     } catch(err) {
         next(err);
+    };
+};
+
+exports.updateBooking = async(req, res, next) => {
+    const { id: booking_id } = req.params;
+    const { check_in_date, check_out_date } = req.body;
+
+    try {
+        const updatedBooking = await editBooking(booking_id, check_in_date, check_out_date);
+        res.status(200).send(updatedBooking);  
+    } catch (err) {
+        next(err);   
     };
 };
