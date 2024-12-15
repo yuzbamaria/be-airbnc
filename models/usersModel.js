@@ -43,3 +43,27 @@ exports.updatePropertiesOfUser = async(user_id, first_name, surname, email, phon
     };
     return rows[0];
 };
+
+exports.fetchUserBookings = async(guest_id) => {
+    const queryStr = `
+        SELECT DISTINCT ON (bookings.booking_id)
+            bookings.booking_id,
+            bookings.check_in_date,
+            bookings.check_out_date, 
+            bookings.property_id,
+            properties.name AS property_name,
+            properties.host_id AS host,
+            images.image_url AS image
+        FROM bookings
+        JOIN properties ON 
+            bookings.property_id = properties.property_id 
+        JOIN images ON
+            bookings.property_id = images.property_id
+        WHERE guest_id = $1
+        ORDER BY
+            bookings.booking_id;`;
+        const { rows } = await db.query(queryStr, [guest_id]);
+        return rows;
+};
+
+this.fetchUserBookings(2).then(result => console.log(result));

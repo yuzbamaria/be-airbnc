@@ -1,4 +1,4 @@
-const { fetchUser, updatePropertiesOfUser } = require("../models/usersModel");
+const { fetchUser, updatePropertiesOfUser, fetchUserBookings } = require("../models/usersModel");
 
 exports.getUser = async(req, res, next) => {
     const { id: user_id } = req.params;
@@ -19,5 +19,15 @@ exports.updateUser = async(req, res, next) => {
         res.status(200).send(updatedUser);  
     } catch (err) {
         next(err);   
+    };
+};
+
+exports.getUserBookings = async(req, res, next) => {
+    const { id: guest_id } = req.params;
+    try {
+        const userBookings = await fetchUserBookings(guest_id);
+        res.status(200).send(userBookings);
+    } catch(err) {
+        next(err);
     };
 };
