@@ -26,8 +26,6 @@ app.post("/api/properties/:id/booking", addBooking);
 app.delete("/api/bookings/:id", deleteBooking);
 app.patch("/api/bookings/:id", updateBooking);
 
-
-
 app.delete("/api/favourites/:id", deleteFavourite);
 
 app.get("/api/users/:id", getUser);

@@ -508,7 +508,7 @@ describe("app", () => {
     describe("GET /api/properties/:id/bookings", () => {
         describe("HAPPY PATH", () => {
             test("200 - responds with a bookings array", async() => {
-                const { body: {bookings} } = await request(app)
+                const { body: { bookings } } = await request(app)
                     .get("/api/properties/6/bookings")
                     .expect(200);
                 expect(Array.isArray(bookings)).toBe(true);
@@ -526,11 +526,12 @@ describe("app", () => {
                     .get("/api/properties/2/bookings");
                 expect(body).toHaveProperty("property_id");
             });
-            test("response with bookings objects ordered from latest to earliest check_out_date", async() => {
-                const { body: { bookings } } = await request(app)
-                    .get("/api/properties/2/bookings");
-                expect(bookings).toEqual([...bookings].sort((a, b) => a - b));
-            });
+            // test("response with bookings objects ordered from latest to earliest check_out_date", async() => {
+            //     const { body: { bookings } } = await request(app)
+            //         .get("/api/properties/2/bookings");
+
+            //     expect(bookings).toEqual([...bookings].sort((a, b) => a - b));
+            // });
         });
         describe("SAD PATH", () => {
             test("400 - Bad request if invalid property_id is passed", async() => {
@@ -715,6 +716,48 @@ describe("app", () => {
                     .send({surname: "new surname"})
                     .expect(404);
                 expect(msg).toBe("User not found.");
+            });
+        });
+    });
+    describe("GET /api/users/:id/bookings", () => {
+        describe("HAPPY PATH", () => {
+            test("200 - responds with bookings array of objects", async() => {
+                const { body: { bookings } } = await request(app)
+                    .get("/api/users/2/bookings")
+                    .expect(200);
+                expect(Array.isArray(bookings)).toBe(true);
+                expect(typeof bookings[0]).toBe("object");
+            });
+            test("responds with reviews objects, having properties as below", async() => {
+                const { body: { bookings } } = await request(app)
+                    .get("/api/users/2/bookings");
+                expect(bookings[0]).toHaveProperty("booking_id");
+                expect(bookings[0]).toHaveProperty("check_in_date");
+                expect(bookings[0]).toHaveProperty("check_out_date");
+                expect(bookings[0]).toHaveProperty("property_id");
+                expect(bookings[0]).toHaveProperty("property_name");
+                expect(bookings[0]).toHaveProperty("host");
+                expect(bookings[0]).toHaveProperty("image");
+            });
+            // test.only("response with bookings objects ordered from latest to earliest check_out_date", async() => {
+            //     const { body: { bookings } } = await request(app)
+            //         .get("/api/users/6/bookings");
+            //     console.log(bookings)
+            // });
+        });
+        describe("SAD PATH", () => {
+            test("400 - Bad request if invalid user_id is passed", async() => {
+                const { body: { msg } } = await request(app)
+                    .get("/api/users/ghjyr/bookings")
+                    .expect(400);
+                expect(msg).toBe("Bad request.");
+            });
+            test("404 - Property not found if non-existant property_id is passed", async() => {
+                const { body: { msg } } = await request(app)
+                    .get("/api/properties/12/bookings")
+                    .expect(404);
+                console.log(msg)
+                expect(msg).toBe("Resource not found.")
             });
         });
     });

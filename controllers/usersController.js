@@ -24,10 +24,12 @@ exports.updateUser = async(req, res, next) => {
 
 exports.getUserBookings = async(req, res, next) => {
     const { id: guest_id } = req.params;
+   
     try {
         const userBookings = await fetchUserBookings(guest_id);
         res.status(200).send(userBookings);
     } catch(err) {
+        console.log(err)
         next(err);
     };
 };

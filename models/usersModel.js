@@ -46,7 +46,7 @@ exports.updatePropertiesOfUser = async(user_id, first_name, surname, email, phon
 
 exports.fetchUserBookings = async(guest_id) => {
     const queryStr = `
-        SELECT DISTINCT ON (bookings.booking_id)
+        SELECT DISTINCT 
             bookings.booking_id,
             bookings.check_in_date,
             bookings.check_out_date, 
@@ -61,9 +61,11 @@ exports.fetchUserBookings = async(guest_id) => {
             bookings.property_id = images.property_id
         WHERE guest_id = $1
         ORDER BY
-            bookings.booking_id;`;
-        const { rows } = await db.query(queryStr, [guest_id]);
-        return rows;
-};
+            bookings.check_in_date;`;
 
-this.fetchUserBookings(2).then(result => console.log(result));
+        const { rows } = await db.query(queryStr, [guest_id]);
+        if(rows.length === 0) {
+            return Promise.reject({ status: 404, msg: "Resource not found." })
+        };
+        return { bookings: rows };
+};
