@@ -29,7 +29,6 @@ exports.getUserBookings = async(req, res, next) => {
         const userBookings = await fetchUserBookings(guest_id);
         res.status(200).send(userBookings);
     } catch(err) {
-        console.log(err)
         next(err);
     };
 };

@@ -756,7 +756,6 @@ describe("app", () => {
                 const { body: { msg } } = await request(app)
                     .get("/api/properties/12/bookings")
                     .expect(404);
-                console.log(msg)
                 expect(msg).toBe("Resource not found.")
             });
         });
