@@ -2,10 +2,12 @@
   "name": "be-airbnc",
   "version": "1.0.0",
   "description": "## Description  This is an Express server that allows users to make HTTP requests associated with an Airbnb style application and interact with properties, reviews, and user data. It connects to a PostgreSQL database using node-postgres. The server includes fully tested endpoints, verified through integration tests with Supertest and Jest.",
-  "main": "index.js",
+  "main": "listen.js",
   "scripts": {
+    "start": "node listen.js",
     "setup-dbs": "psql -f db/setup.sql",
-    "seed": "NODE_ENV=test node ./db/run-seed.js",
+    "seed": "node ./db/run-seed.js",
+    "seed-prod": "NODE_ENV=production npm run seed",
     "test": "jest --verbose"
   },
   "keywords": [],
