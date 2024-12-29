@@ -16,25 +16,13 @@ PGDATABASE=airbnc_test
 
 <br>
 
-**How the Pool Accesses Credentials**
-
-The `pg` module's `Pool` instance accesses database credentials from the environment variables defined in the `.env.test` file.
-
-1. Loading Environment Variables:  
-The dotenv library loads variables from `.env.test` (e.g., `PGDATABASE=airbnc_test`) into `process.env`.
-
-2. Verifying Configuration:  
-The script checks that `PGDATABASE` is set. If missing, it throws an error:
-
-```
-if (!process.env.PGDATABASE) {
-    throw new Error("PGDATABASE not set");
-};
-```
-
-3. Connecting to the Database:  
-When a `Pool` instance is created, it automatically reads credentials like `PGDATABASE` from `process.env`.
-
-
+## Technologies used
+### Backend: 
+Node.js, Express.js
+### Database: 
+PostgreSQL
+### Database Client
+Node-Postgres (pg)
+- Hosting: Supabase
 ## License 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
