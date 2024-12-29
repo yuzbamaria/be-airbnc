@@ -6,7 +6,10 @@ This is an Express server that allows users to make HTTP requests associated wit
 ## Project setup
 
 - Install the necessary dependencies by running the following in the root of repo:
-```npm install```
+
+```
+npm install
+```
 
 - Create a `.env.test` file at the root level with the following content:
 
