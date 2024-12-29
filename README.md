@@ -16,7 +16,10 @@ npm install
 ```
 PGDATABASE=airbnc_test
 ```
-- Run `npm run setup-dbs` to create the local test database.
+- Create the local test database:
+```
+npm run setup-dbs
+```
 
 <br>
 
