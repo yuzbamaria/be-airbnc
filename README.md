@@ -24,7 +24,6 @@ git clone https://github.com/your_user_name/be-airbnc
 ```
 npm install
 ```
-It will install the following dependencies: `dotenv`, `express`, `pg`, `pg-format`.
 
 3. Set up databases by running:
 ```
