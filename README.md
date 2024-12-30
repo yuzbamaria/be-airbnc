@@ -44,7 +44,6 @@ PGDATABASE=airbnc_test
 ```
 PGDATABASE=airbnc
 ```
-<br>
 
 ## Technologies used
 - Backend: Node.js, Express.js
@@ -54,7 +53,6 @@ PGDATABASE=airbnc
 - Architecture: MVC (Model-View-Controller)
 - Version Control: Git, GitHub
 - Project Management: Trello
-<br>
 
 ## License 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
