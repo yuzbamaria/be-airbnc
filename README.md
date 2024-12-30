@@ -2,6 +2,7 @@
 
 ## Description 
 This is an Express server that allows users to make HTTP requests associated with an Airbnb style application and interact with properties, reviews, and user data. It connects to a PostgreSQL database using node-postgres. The server includes fully tested endpoints, verified through integration tests with Supertest and Jest. 
+<br>
 
 ## Project setup
 
@@ -53,6 +54,7 @@ PGDATABASE=airbnc
 - Architecture: MVC (Model-View-Controller)
 - Version Control: Git, GitHub
 - Project Management: Trello
+<br>
 
 ## License 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
