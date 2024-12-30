@@ -31,8 +31,8 @@ npm run setup-dbs
 npm run seed 
 ```
 
-4. Create two .env files at the root level where each stores an environment variable for the connection pool to access databases.
-Ensure they are both added to .gitignore:
+4. Create two `.env` files at the root level where each stores an environment variable for the connection pool to access databases.
+Ensure they are both added to `.gitignore`:
 
 `.env.test`:
 ```
