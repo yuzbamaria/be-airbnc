@@ -46,13 +46,14 @@ PGDATABASE=airbnc
 ```
 
 ## Technologies used
-- Backend: Node.js, Express.js
-- Database: PostgreSQL
-- Database Client: Node-Postgres (pg)
-- Hosting: Supabase (database), Render (API)
-- Architecture: MVC (Model-View-Controller)
-- Version Control: Git, GitHub
-- Project Management: Trello
+- **Backend**: Node.js, Express.js
+- **Database**: PostgreSQL
+- **Database Client**: Node-Postgres (pg)
+- **Testing**: Jest (unit testing), Supertest (integration testing), Postman (manual testing of endpoints and simulating requests)
+- **Hosting**: Supabase (database), Render (API)
+- **Architecture**: MVC (Model-View-Controller)
+- **Version Control**: Git, GitHub
+- **Project Management**: Trello
 
 ## License 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
