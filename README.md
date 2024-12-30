@@ -5,22 +5,44 @@ This is an Express server that allows users to make HTTP requests associated wit
 
 ## Project setup
 
-- Install the necessary dependencies by running the following in the root of repo:
+### Prerequisites
 
+Ensure the following dependencies are globally installed:
+- Node.js: version 23.0.0 or higher
+- PostgreSQL: version 14.15 or higher
+- NPM: version 10.9.2 or higher
+
+### Installation Steps
+
+1. Fork and then clone the repositiory:
+```
+git clone https://github.com/your_user_name/be-airbnc
+```
+
+2. Install the necessary dependencies by running the following in the root of repo:
 ```
 npm install
 ```
+It will install the following dependencies: `dotenv`, `express`, `pg`, `pg-format`.
 
-- Create a `.env.test` file at the root level with the following content:
+3. Set up databases by running:
+```
+npm run setup-dbs
+npm run seed 
+```
 
+4. Create two .env files at the root level where each stores an environment variable for the connection pool to access databases.
+Ensure they are both added to .gitignore:
+
+`.env.test`:
 ```
 PGDATABASE=airbnc_test
 ```
-- Create the local test database:
-```
-npm run setup-dbs
-```
 
+`.env.dev`:
+```
+PGDATABASE=airbnc
+```
 <br>
 
 ## Technologies used
