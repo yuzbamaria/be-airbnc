@@ -9,9 +9,9 @@ This is an Express server that allows users to make HTTP requests associated wit
 ### Prerequisites
 
 Ensure the following dependencies are globally installed:
-- Node.js: version 23.0.0 or higher
-- PostgreSQL: version 14.15 or higher
-- NPM: version 10.9.2 or higher
+- **Node.js**: version 23.0.0 or higher
+- **PostgreSQL**: version 14.15 or higher
+- **NPM**: version 10.9.2 or higher
 
 ### Installation Steps
 
