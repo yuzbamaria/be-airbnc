@@ -10,7 +10,7 @@ const {
 } = require("./errors/handleErrors");
 
 app.use(express.json());
-
+app.use(express.static('public'));
 app.use("/api", apiRouter);
 
 app.all("/*", handlePathNotFound); // catch-all
