@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    padding: 15px;
+    /* background-color: #385abe; */
+    color: #385abe;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    padding: 20px 10px 10px 0;
+}
+
+h3 {
+    padding: 15px 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.http-method {
+    background-color: #385abe;
+    color: white;
+    font-size: 20px;
+    font-weight: bold; 
+    padding: 3px 5px;
+}
+
+.endpoint_path {
+    font-family: 'Courier New', Courier, monospace;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 3px 10px;
+}
+
+.endpoint-info {
+    font-size: 18px;
+}
+
+li {
+    padding: 10px;
+}
+
+.example-response {
+    background-color: rgb(235, 235, 235);
+    padding: 15px;
+    font-size: 16px;
+    color: #385abe;
+    line-height: 2;
+}
+
+.type-definition table {
+    border-collapse: collapse;
+   
+}
+
+.type-definition table th, .type-definition table td {
+    border: 1px solid #385abe;
+    padding: 8px;
+}
+
+.type-definition table thead tr th {
+    padding: 15px 50px;
+}
+
+.type-definition table tbody tr td {
+    padding: 15px 40px;;
+    
+}
+
+.type-name {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.type-description {
+    color: rgb(104, 96, 96);
+}
+
+.type-data {
+    text-align: center;
+    font-style: italic;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;;
+    padding: 15px;
+    background-color: #385abe;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
