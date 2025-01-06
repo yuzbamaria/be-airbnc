@@ -12,6 +12,7 @@
     </header>
     <main>
         <div class="container">
+            <p class="endpoint-router">Users endpoints</p>
             <!-- Endpoint 1 -->
             <section>
                 <div class="description">
@@ -28,17 +29,17 @@
                 <div class="example">
                     <h3>Example Response:</h3>
                     <pre class="example-response">
-                        {
-                            "user":  {
-                                "user_id": 1,
-                                "first_name": "Bill",
-                                "surname": "Farrel",
-                                "email": "bill.farrel@gmail.com",
-                                "phone_number": "07456116735",
-                                "avatar": "https://example.com/avatar.jpg">
-                                "created_at": "2024-01-01T09:30:00Z"
-                                }
-                        }</pre>
+    {
+        "user":  {
+            "user_id": 1,
+            "first_name": "Bill",
+            "surname": "Farrel",
+            "email": "bill.farrel@gmail.com",
+            "phone_number": "07456116735",
+            "avatar": "https://example.com/avatar.jpg">
+            "created_at": "2024-01-01T09:30:00Z"
+            }
+    }</pre>
                 </div>             
                 <div class="type-definition">
                     <h3>Users ids type:</h3>
@@ -107,13 +108,13 @@
                 <div class="example">
                     <h3>Example Payload:</h3>
                     <pre class="example-response">
-                        {
-                            "first_name": "Bill",
-                            "surname": "Mille",
-                            "email": "bill.mille@example.com",
-                            "phone": "07453886735",
-                            "avatar": "https://example.com/new-avatar.jpg"
-                        }</pre>
+    {
+        "first_name": "Bill",
+        "surname": "Mille",
+        "email": "bill.mille@example.com",
+        "phone": "07453886735",
+        "avatar": "https://example.com/new-avatar.jpg"
+    }</pre>
                 </div>
                 
                 <div class="type-definition">
@@ -182,29 +183,28 @@
                 <div class="example">
                     <h3>Example Response:</h3>
                     <pre class="example-response">
+    {
+        "bookings": [
             {
-                "bookings": [
-                    {
-                        "booking_id": 1,
-                        "check_in_date": "2025-01-10",
-                        "check_out_date": "2025-01-15",
-                        "property_id": 100,
-                        "property_name": "Sunny Beach Resort",
-                        "host": "John Doe",
-                        "image": "https://example.com/property1.jpg"
-                    },
-                    {
-                        "booking_id": 2,
-                        "check_in_date": "2025-02-01",
-                        "check_out_date": "2025-02-05",
-                        "property_id": 101,
-                        "property_name": "Mountain View Cabin",
-                        "host": "Jane Smith",
-                        "image": "https://example.com/property2.jpg"
-                    }
-                ]
+                "booking_id": 1,
+                "check_in_date": "2025-01-10",
+                "check_out_date": "2025-01-15",
+                "property_id": 100,
+                "property_name": "Sunny Beach Resort",
+                "host": "John Doe",
+                "image": "https://example.com/property1.jpg"
+            },
+            {
+                "booking_id": 2,
+                "check_in_date": "2025-02-01",
+                "check_out_date": "2025-02-05",
+                "property_id": 101,
+                "property_name": "Mountain View Cabin",
+                "host": "Jane Smith",
+                "image": "https://example.com/property2.jpg"
             }
-                    </pre>
+        ]
+    }</pre>
                 </div>
                 
                 <div class="type-definition">
@@ -257,6 +257,720 @@
                     </table>
                 </div>
             </section>
+            <!-- Endpoint 4 -->
+            <p class="endpoint-router">Properties endpoints</p>
+            <section>
+                <div class="description">
+                    <h2>4. Get all properties</h2>
+                    <p>
+                        <strong class="http-method">GET</strong>
+                        <code class="endpoint_path">/api/properties</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li><strong>Optional Queries:</strong></li>
+                        <ul>
+                            <li>
+                                <code class="query">?maxprice=&lt;max cost per night&gt;</code> 
+                                – filters properties with a maximum cost per night.
+                            </li>
+                            <li>
+                                <code class="query">?minprice=&lt;min cost per night&gt;</code> 
+                                – filters properties with a minimum cost per night.
+                            </li>
+                            <li>
+                                <code class="query">?sort=&lt;cost_per_night | popularity&gt;</code> 
+                                – sorts properties by cost per night or popularity.</li>
+                            <li>
+                                <code class="query">?order=&lt;ascending | descending&gt;</code> 
+                                – specifies the order for sorting (ascending or descending).</li>
+                            <li>
+                                <code class="query">?host=&lt;id&gt;</code> 
+                                – filters properties by the specified host's ID.</li>
+                        </ul>
+                        <li><strong>Description:</strong> Fetches a list of properties, ordered by most favorited to least by default. Supports query parameters for filtering and sorting.</li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <h3>Example Response:</h3>
+                    <pre class="example-response">
+    {
+        "properties": [
+            {
+                "property_id": 10,
+                "property_name": "Sunny Beach Resort",
+                "location": "Miami Beach, FL",
+                "price_per_night": 200,
+                "host": "Bill Mille"
+            },
+            {
+                "property_id": 8,
+                "property_name": "Cozy Mountain Cabin",
+                "location": "Aspen, CO",
+                "price_per_night": 150,
+                "host": "Kate Smith"
+            }
+        ]
+    }</pre>
+                   
+                </div>
+                <div class="type-definition">
+                    <h3>Properties response type:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="type-name">property_id</code></td>
+                                <td class="type-description">The unique identifier for the property.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">property_name</code></td>
+                                <td class="type-description">The name of the property.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">location</code></td>
+                                <td class="type-description">The location of the property (e.g., city or region).</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">price_per_night</code></td>
+                                <td class="type-description">The cost per night for the property.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">host</code></td>
+                                <td class="type-description">The name of the host responsible for the property.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Endpoint 5 -->
+            <section>
+                <div class="description">
+                    <h2>5. Favourite a property</h2>
+                    <p>
+                        <strong class="http-method">POST</strong>
+                        <code class="endpoint_path">/api/properties/:id/favourite</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – property's unique identifier.
+                        </li>
+                        <li><strong>Payload:</strong></li>
+                        <pre class="example-response">
+    {
+        "guest_id": &lt;id&gt;
+    }</pre>
+                        <li>
+                            <strong>Description:</strong> Adds a new entry to the favourites table for the specified property and guest. 
+                            This action marks the property as favourited by the user.
+                        </li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <h3>Example Response:</h3>
+                    <pre class="example-response">
+    {
+        "msg": "Property favourited successfully.",
+        "favorite_id": 25
+    }</pre>
+                </div>
+                <div class="type-definition">
+                    <h3>Favouriting response type:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="type-name">msg</code></td>
+                                <td class="type-description">A confirmation message indicating the action was successful.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">favorite_id</code></td>
+                                <td class="type-description">The unique identifier for the newly created favourite record.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Endpoint 6 -->
+            <section>
+                <div class="description">
+                    <h2>6. Get a specific property</h2>
+                    <p>
+                        <strong class="http-method">GET</strong>
+                        <code class="endpoint_path">/api/properties/:id</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – the unique identifier of the property.
+                        </li>
+                        <li><strong>Optional Query:</strong></li>
+                        <ul>
+                            <li>
+                                <code class="query">?user_id=&lt;id&gt;</code> – indicates whether the user with the specified ID has favourited this property.
+                            </li>
+                        </ul>
+                        <li>
+                            <strong>Description:</strong> Retrieves detailed information about a specific property. Optionally includes a flag indicating whether a specific user has marked the property as a favourite.
+                        </li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <h3>Example Response:</h3>
+                    <pre class="example-response">
+    {
+        "property": {
+            "property_id": 12,
+            "property_name": "Charming Lakeside Cabin",
+            "location": "Lake Tahoe, CA",
+            "price_per_night": 300,
+            "description": "A peaceful retreat with stunning lake views.",
+            "host": "John Doe",
+            "host_avatar": "https://example.com/images/host_avatar.jpg",
+            "favourite_count": 5,
+            "favourited": true
+        }
+    }</pre>
+                </div>
+                <div class="type-definition">
+                    <h3>Property response type:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="type-name">property_id</code></td>
+                                <td class="type-description">The unique identifier for the property.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">property_name</code></td>
+                                <td class="type-description">The name of the property.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">location</code></td>
+                                <td class="type-description">The property location (e.g., city or region).</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">price_per_night</code></td>
+                                <td class="type-description">The nightly cost of the property.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">description</code></td>
+                                <td class="type-description">A detailed description of the property.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">host</code></td>
+                                <td class="type-description">The host's name responsible for the property.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">host_avatar</code></td>
+                                <td class="type-description">The URL of the host's avatar image.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">favourite_count</code></td>
+                                <td class="type-description">The number of times this property has been favourited.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">favourited</code></td>
+                                <td class="type-description">Indicates whether the specified user has marked the property as a favourite.</td>
+                                <td class="type-data">boolean</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Endpoint 7 -->
+            <section>
+                <div class="description">
+                    <h2>7. Get reviews for a property</h2>
+                    <p>
+                        <strong class="http-method">GET</strong>
+                        <code class="endpoint_path">/api/properties/:id/reviews</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – the unique identifier of the property.
+                        </li>
+                        <li>
+                            <strong>Description:</strong> Retrieves all reviews for a specific property, sorted from latest to oldest by default. It also provides the average rating across all reviews.
+                        </li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <h3>Example Response:</h3>
+                    <pre class="example-response">
+    {
+        "reviews": [
+            {
+                "review_id": 101,
+                "comment": "Amazing property with great amenities.",
+                "rating": 5,
+                "created_at": "2025-01-01",
+                "guest": "Jane Smith",
+                "guest_avatar": "https://example.com/images/guest_avatar.jpg"
+            },
+            {
+                "review_id": 102,
+                "comment": "Good experience, but the location was a bit far.",
+                "rating": 4,
+                "created_at": "2024-12-25",
+                "guest": "John Doe",
+                "guest_avatar": "https://example.com/images/john_avatar.jpg"
+            }
+        ],
+        "average_rating": 4.5
+    }</pre>
+                </div>
+                <div class="type-definition">
+                    <h3>Reviews response type:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="type-name">reviews</code></td>
+                                <td class="type-description">A list of review objects for the property.</td>
+                                <td class="type-data">array</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">review_id</code></td>
+                                <td class="type-description">The unique identifier for a review.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">comment</code></td>
+                                <td class="type-description">The comment provided by the reviewer.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">rating</code></td>
+                                <td class="type-description">The rating (out of 5) provided by the reviewer.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">created_at</code></td>
+                                <td class="type-description">The date the review was submitted.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">guest</code></td>
+                                <td class="type-description">The name of the guest who submitted the review.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">guest_avatar</code></td>
+                                <td class="type-description">The URL of the guest's avatar image.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">average_rating</code></td>
+                                <td class="type-description">The average rating of all reviews for the property.</td>
+                                <td class="type-data">float</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Endpoint 8 -->
+            <section>
+                <div class="description">
+                    <h2>8. POST a new review</h2>
+                    <p>
+                        <strong class="http-method">POST</strong>
+                        <code class="endpoint_path">/api/properties/:id/reviews</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – the unique identifier of the property being reviewed.
+                        </li>
+                        <li>
+                            <strong>Request Body:</strong> Expects the following JSON payload:
+                            <pre class="example-response">
+    {
+        "guest_id": &lt;id&gt;,
+        "rating": &lt;rating&gt;,
+        "comment": &lt;comment&gt;
+    }</pre>
+                        </li>
+                        <li>
+                            <strong>Description:</strong> Inserts a new review for the specified property into the reviews table. The payload must include the guest ID, rating, and comment.
+                        </li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <h3>Example Response:</h3>
+                    <pre class="example-response">
+    {
+        "review_id": 34,
+        "property_id": 12,
+        "guest_id": 45,
+        "rating": 5,
+        "comment": "Amazing place, loved the experience!",
+        "created_at": "2025-01-05T12:34:56Z"
+    }</pre>
+                </div>
+                <div class="type-definition">
+                    <h3>Review response type:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="type-name">review_id</code></td>
+                                <td class="type-description">The unique identifier for the review.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">property_id</code></td>
+                                <td class="type-description">The unique identifier for the property being reviewed.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">guest_id</code></td>
+                                <td class="type-description">The unique identifier for the guest who submitted the review.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">rating</code></td>
+                                <td class="type-description">The rating given to the property by the guest.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">comment</code></td>
+                                <td class="type-description">The review text or comment provided by the guest.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">created_at</code></td>
+                                <td class="type-description">The timestamp when the review was created.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Endpoint 9 -->
+            <section>
+                <div class="description">
+                    <h2>9. Get bookings for a specific property</h2>
+                    <p>
+                        <strong class="http-method">GET</strong>
+                        <code class="endpoint_path">/api/properties/:id/bookings</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – the unique identifier of the property.
+                        </li>
+                        <li>
+                            <strong>Description:</strong> Retrieves all bookings for the specified property, ordered from the latest <code>check_out_date</code> to the earliest. 
+                        </li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <h3>Example Response:</h3>
+                    <pre class="example-response">
+    {
+        "bookings": [
+            {
+                "booking_id": 34,
+                "check_in_date": "2025-01-01",
+                "check_out_date": "2025-01-05",
+                "created_at": "2024-12-15T10:00:00Z"
+            },
+            {
+                "booking_id": 30,
+                "check_in_date": "2024-12-20",
+                "check_out_date": "2024-12-25",
+                "created_at": "2024-11-30T08:30:00Z"
+            }
+        ],
+        "property_id": 12
+    }</pre>
+                </div>
+                <div class="type-definition">
+                    <h3>Booking response type:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="type-name">booking_id</code></td>
+                                <td class="type-description">The unique identifier for the booking.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">check_in_date</code></td>
+                                <td class="type-description">The date when the booking starts.</td>
+                                <td class="type-data">string (date)</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">check_out_date</code></td>
+                                <td class="type-description">The date when the booking ends.</td>
+                                <td class="type-data">string (date)</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">created_at</code></td>
+                                <td class="type-description">The timestamp when the booking was created.</td>
+                                <td class="type-data">string (date)</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">property_id</code></td>
+                                <td class="type-description">The unique identifier for the property associated with the bookings.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Endpoint 10 -->
+            <section>
+                <div class="description">
+                    <h2>10. Create a booking for a specific property</h2>
+                    <p>
+                        <strong class="http-method">POST</strong>
+                        <code class="endpoint_path">/api/properties/:id/booking</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – the unique identifier of the property.
+                        </li>
+                        <li>
+                            <strong>Payload:</strong>
+                            <pre class="example-response">
+    {
+        "guest_id": <id>,
+        "check_in_date": <date>,
+        "check_out_date": <date>
+    }</pre>
+                        </li>
+                        <li>
+                            <strong>Description:</strong> This endpoint allows users to create a new booking for the specified property, assuming there is no overlapping booking during the provided check-in and check-out dates. 
+                        </li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <h3>Example Response:</h3>
+                    <pre class="example-response">
+    {
+        "msg": "Booking successful",
+        "booking_id": 25
+    }</pre>
+                </div>
+                <div class="type-definition">
+                    <h3>Booking creation response type:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="type-name">msg</code></td>
+                                <td class="type-description">A message indicating the status of the booking creation.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">booking_id</code></td>
+                                <td class="type-description">The unique identifier for the newly created booking.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <p class="endpoint-router">Reviews endpoints</p>
+            <!-- Endpoint 11 -->
+            <section>
+                <div class="description">
+                    <h2>11. Delete a review</h2>
+                    <p>
+                        <strong class="http-method">DELETE</strong>
+                        <code class="endpoint_path">/api/reviews/:id</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – the unique identifier of the review to be deleted.
+                        </li>
+                        <li>
+                            <strong>Description:</strong> 
+                            This endpoint allows users to delete a specific review identified by its unique review ID from the reviews table. 
+                            Responds with the status code 204, indicating that the review was successfully deleted.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <p class="endpoint-router">Bookings endpoints</p>
+            <!-- Endpoint 12 -->
+            <section>
+                <div class="description">
+                    <h2>12. Delete a booking</h2>
+                    <p>
+                        <strong class="http-method">DELETE</strong>
+                        <code class="endpoint_path">/api/bookings/:id</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – the unique identifier of the booking to be deleted.
+                        </li>
+                        <li>
+                            <strong>Description:</strong> 
+                            This endpoint allows users to delete a specific booking identified by its unique booking ID from the bookings table.
+                            Responds with the status code 204, indicating that the booking was successfully deleted.
+                        </li>
+                    </ul>
+                </div>
+            </section>            
+            <!-- Endpoint 13 -->
+            <section>
+                <div class="description">
+                    <h2>13. Update a booking</h2>
+                    <p>
+                        <strong class="http-method">PATCH</strong>
+                        <code class="endpoint_path">/api/bookings/:id</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – the unique identifier of the booking to be updated.
+                        </li>
+                        <li>
+                            <strong>Request Body:</strong>
+                            <pre class="example-response">
+    {
+        "check_in_date": <date>,
+        "check_out_date": <date>
+    }</pre>
+                            The request may include any combination of the `check_in_date` and `check_out_date` properties to update the corresponding values in the booking.
+                        </li>
+                        <li>
+                            <strong>Description:</strong> 
+                            This endpoint allows users to update specific properties of a booking, such as the check-in and check-out dates, using the unique booking ID.
+                        </li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <h3>Example Response:</h3>
+                    <pre class="example-response">
+    {
+        "booking_id": 123,
+        "check_in_date": "2025-03-15",
+        "check_out_date": "2025-03-20",
+        "created_at": "2025-01-06"
+    }</pre>
+                </div>
+                <div class="type-definition">
+                    <h3>Booking response type:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="type-name">booking_id</code></td>
+                                <td class="type-description">The unique identifier for the booking.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">check_in_date</code></td>
+                                <td class="type-description">The date of check-in for the booking.</td>
+                                <td class="type-data">date</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">check_out_date</code></td>
+                                <td class="type-description">The date of check-out for the booking.</td>
+                                <td class="type-data">date</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">created_at</code></td>
+                                <td class="type-description">The date and time when the booking was created.</td>
+                                <td class="type-data">date</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <p class="endpoint-router">Favourites endpoints</p>
+            <!-- Endpoint 14 -->
+            <section>
+                <div class="description">
+                    <h2>14. Delete a favourite</h2>
+                    <p>
+                        <strong class="http-method">DELETE</strong>
+                        <code class="endpoint_path">/api/favourites/:id</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li>
+                            <strong>Parameters:</strong>
+                            <code>:id</code> (required) – the unique identifier of the favourite to be deleted.
+                        </li>
+                        <li>
+                            <strong>Description:</strong> 
+                            This endpoint allows users to delete a specific favourite identified by its unique ID from the favourites table. 
+                            It responds with the status code 204, indicating that the favourite was successfully deleted.
+                        </li>
+                    </ul>
+                </div>
+            </section>                   
         </div>
     </main>
     <footer>
