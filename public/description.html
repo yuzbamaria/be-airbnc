@@ -166,6 +166,97 @@
                     </table>
                 </div>
             </section>
+            <!-- Endpoint 3 -->
+            <section>
+                <div class="description">
+                    <h2>3. Get a user's bookings by id</h2>
+                    <p>
+                        <strong class="http-method">GET</strong>
+                        <code class="endpoint_path">/api/users/:id/bookings</code>
+                    </p>
+                    <ul class="endpoint-info">
+                        <li><strong>Parameters:</strong> <code>:id</code> (required) - User's unique identifier.</li>
+                        <li><strong>Description:</strong> Fetches all bookings for the specified user ID, returned in chronological order of check-in dates.</li>
+                    </ul>
+                </div>
+                <div class="example">
+                    <h3>Example Response:</h3>
+                    <pre class="example-response">
+            {
+                "bookings": [
+                    {
+                        "booking_id": 1,
+                        "check_in_date": "2025-01-10",
+                        "check_out_date": "2025-01-15",
+                        "property_id": 100,
+                        "property_name": "Sunny Beach Resort",
+                        "host": "John Doe",
+                        "image": "https://example.com/property1.jpg"
+                    },
+                    {
+                        "booking_id": 2,
+                        "check_in_date": "2025-02-01",
+                        "check_out_date": "2025-02-05",
+                        "property_id": 101,
+                        "property_name": "Mountain View Cabin",
+                        "host": "Jane Smith",
+                        "image": "https://example.com/property2.jpg"
+                    }
+                ]
+            }
+                    </pre>
+                </div>
+                
+                <div class="type-definition">
+                    <h3>Bookings response type:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NAME</th>
+                                <th>DESCRIPTION</th>
+                                <th>TYPE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code class="type-name">booking_id</code></td>
+                                <td class="type-description">The unique identifier for the booking.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">check_in_date</code></td>
+                                <td class="type-description">The start date of the booking (ISO 8601 format).</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">check_out_date</code></td>
+                                <td class="type-description">The end date of the booking (ISO 8601 format).</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">property_id</code></td>
+                                <td class="type-description">The unique identifier for the property.</td>
+                                <td class="type-data">integer</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">property_name</code></td>
+                                <td class="type-description">The name of the property.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">host</code></td>
+                                <td class="type-description">The name of the host responsible for the property.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                            <tr>
+                                <td><code class="type-name">image</code></td>
+                                <td class="type-description">The URL to the first image of the property.</td>
+                                <td class="type-data">string</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
     </main>
     <footer>
