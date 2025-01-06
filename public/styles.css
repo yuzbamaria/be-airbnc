@@ -8,7 +8,6 @@ body {
 header {
     text-align: center;
     padding: 15px;
-    /* background-color: #385abe; */
     color: #385abe;
 }
 
@@ -26,8 +25,11 @@ h3 {
 
 .container {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
     padding: 10px;
+    /* max-width: 1200px; */
+    margin: 0 auto;
 }
 
 .http-method {
@@ -54,17 +56,28 @@ li {
     padding: 10px;
 }
 
+.description,
+.example,
+.type-definition {
+    width: 100%;
+    max-width: 800px; 
+    margin: 0 auto; /* Center align */
+}
+
 .example-response {
-    background-color: rgb(235, 235, 235);
-    padding: 15px;
+    background-color: rgb(242, 242, 242);
     font-size: 16px;
     color: #385abe;
     line-height: 2;
+    /* align-items: left; */
+}
+
+.type-definition {
+    margin-bottom: 40px;
 }
 
 .type-definition table {
     border-collapse: collapse;
-   
 }
 
 .type-definition table th, .type-definition table td {
@@ -77,8 +90,7 @@ li {
 }
 
 .type-definition table tbody tr td {
-    padding: 15px 40px;;
-    
+    padding: 15px 40px;
 }
 
 .type-name {
