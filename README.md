@@ -1,8 +1,7 @@
 # AirBNC
 
 ## Description 
-This is an Express server that allows users to make HTTP requests associated with an Airbnb style application and interact with properties, reviews, and user data. It connects to a PostgreSQL database using node-postgres. The server includes fully tested endpoints, verified through integration tests with Supertest and Jest. 
-Link to documentation https://be-airbnc-zw86.onrender.com/description.html 
+This is an Express server that provides an API for an Airbnb-style application, allowing users to interact with property listings, reviews, and user data. It connects to a PostgreSQL database using the node-postgres library. The server includes fully tested CRUD endpoints, verified through integration tests using Supertest and Jest. Documentation is available here: https://be-airbnc-zw86.onrender.com/description.html.
 <br>
 
 ## Project setup
