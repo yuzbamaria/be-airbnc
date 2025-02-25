@@ -1,10 +1,8 @@
 const {
     lookUp, 
-    lookUpProperties, 
     formatData, 
     orderProperties,
     selectHosts,
-    selectGuests
 } = require("../db/utils");
 
 describe("lookUp", () => {

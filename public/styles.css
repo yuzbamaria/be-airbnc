@@ -23,6 +23,10 @@ h3 {
     padding: 15px 10px;
 }
 
+/* section {
+    display: flex;
+} */
+
 .container {
     display: flex;
     flex-direction: column;
@@ -37,20 +41,27 @@ h3 {
     font-weight: bold;
 }
 
-.http-method {
-    background-color: #385abe;
-    color: white;
-    font-size: 20px;
+.http-method, .endpoint_path {
     font-weight: bold; 
-    padding: 3px 5px;
+} 
+
+.http-method {
+    color: #385abe;  
+    margin: 2px 8px;
+    font-size: 24px;
 }
 
 .endpoint_path {
     font-family: 'Courier New', Courier, monospace;
-    color: black;
-    font-weight: bold;
+    background-color: black;
+    padding: 10px;
+    color: #dedede;
+    border-radius: 2px;
     font-size: 20px;
-    padding: 3px 10px;
+}
+
+.orange {
+    color: darkorange;
 }
 
 .endpoint-info {
