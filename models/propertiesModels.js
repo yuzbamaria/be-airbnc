@@ -16,7 +16,7 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
         return Promise.reject({ status: 404, msg: "Path not found." }); // handlePathNotFound, 404
     };
 
-    let queryStr = `SELECT
+    let queryStr = `SELECT 
             properties.property_id,
             properties.name,
             properties.location,
@@ -25,7 +25,7 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
             users.first_name,
             users.surname,
             COUNT(favourites.favourite_id) AS popularity,
-            images.image_url AS image
+            MIN(images.image_url) AS image
         FROM properties
         JOIN users ON
             properties.host_id = users.user_id
@@ -55,14 +55,13 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
             maxMinOptions.push(`price_per_night >= $${params.length + 1}`);
             params.push(minprice);
         }
-        queryStr += maxMinOptions;
+        queryStr += maxMinOptions.join(" AND ");
     };
 
     queryStr += `GROUP BY
             properties.property_id,
             users.first_name,
-            users.surname,
-            images.image_url `;
+            users.surname `;
 
     queryStr += `ORDER BY ${sort} ${order};`;
 
@@ -77,6 +76,7 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
 
     return { properties: orderedProperties };
 };
+// this.fetchProperties("popularity", "desc", 1, 500, 100).then((result) => console.log(result.properties.length))
 
 async function fetchFavouriteByUser(property_id, guest_id) {
     const queryStr = `
