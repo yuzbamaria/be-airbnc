@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const apiRouter = require("./routes/api.router");
+const cors = require('cors');
 
 const { 
     handlePathNotFound, 
@@ -8,6 +9,8 @@ const {
     handleDbDataTypeErrors, 
     handleForeignKeyVioletions 
 } = require("./errors/handleErrors");
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.static('public'));
