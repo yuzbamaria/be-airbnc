@@ -49,21 +49,25 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
         const maxMinOptions = [];
         if(maxprice) {
             maxMinOptions.push(`price_per_night <= $${params.length + 1}`);
-            params.push(maxprice);
+            params.push(Number(maxprice));
         };
         if(minprice) {
             maxMinOptions.push(`price_per_night >= $${params.length + 1}`);
-            params.push(minprice);
+            params.push(Number(minprice));
         }
         queryStr += maxMinOptions.join(" AND ");
     };
-
-    queryStr += `GROUP BY
+    
+    queryStr += ` GROUP BY
             properties.property_id,
             users.first_name,
             users.surname `;
 
     queryStr += `ORDER BY ${sort} ${order};`;
+
+    console.log("Final Query:", queryStr);
+    console.log("Final Params:", params);
+
 
     const { rows } = await db.query(queryStr, params);
 
