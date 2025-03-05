@@ -52,11 +52,13 @@ exports.fetchUserBookings = async(guest_id) => {
             bookings.check_out_date, 
             bookings.property_id,
             properties.name AS property_name,
-            properties.host_id AS host,
+            CONCAT(users.first_name, ' ', users.surname) AS host,
             images.image_url AS image
         FROM bookings
         JOIN properties ON 
-            bookings.property_id = properties.property_id 
+            bookings.property_id = properties.property_id
+        JOIN users ON
+            properties.host_id = users.user_id 
         JOIN images ON
             bookings.property_id = images.property_id
         WHERE guest_id = $1
@@ -69,3 +71,5 @@ exports.fetchUserBookings = async(guest_id) => {
         };
         return { bookings: rows };
 };
+
+// CONCAT(users.first_name, ' ', users.surname) AS guest
