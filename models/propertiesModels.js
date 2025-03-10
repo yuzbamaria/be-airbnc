@@ -18,14 +18,15 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
 
     let queryStr = `SELECT 
             properties.property_id,
-            properties.name,
+            properties.name as property_name,
             properties.location,
-            properties.price_per_night::int AS cost_per_night,
+            properties.property_type,
+            properties.price_per_night::int AS price_per_night,
             properties.host_id,
             users.first_name,
             users.surname,
             COUNT(favourites.favourite_id) AS popularity,
-            MIN(images.image_url) AS image
+            ARRAY_AGG(images.image_url) as images
         FROM properties
         JOIN users ON
             properties.host_id = users.user_id
@@ -35,11 +36,14 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
             properties.property_id = images.property_id `;
 
     const params = [];
+
     if(host) {
         queryStr += `WHERE host_id = $${params.length + 1} `;
         params.push(Number(host));
     };
+
     if(maxprice || minprice) {
+        
         if(host) {
             queryStr += `AND `;
         } else {
@@ -47,14 +51,17 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
         };
 
         const maxMinOptions = [];
+
         if(maxprice) {
             maxMinOptions.push(`price_per_night <= $${params.length + 1}`);
             params.push(Number(maxprice));
         };
+
         if(minprice) {
             maxMinOptions.push(`price_per_night >= $${params.length + 1}`);
             params.push(Number(minprice));
-        }
+        };
+        
         queryStr += maxMinOptions.join(" AND ");
     };
     
@@ -65,20 +72,15 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
 
     queryStr += `ORDER BY ${sort} ${order};`;
 
-    console.log("Final Query:", queryStr);
-    console.log("Final Params:", params);
-
-
     const { rows } = await db.query(queryStr, params);
 
     if(rows.length === 0) {
         return Promise.reject({ status: 404, msg: "Resource not found." })
     };
-    const hostsRef = lookUpHosts(rows);
-    const updatedHostKeyProperties = mapHostKey(hostsRef, "host_id", "host", rows);
-    const orderedProperties = orderProperties(updatedHostKeyProperties);
 
-    return { properties: orderedProperties };
+    const hostsRef = lookUpHosts(rows);
+    const updatedProperties = mapHostKey(hostsRef, "host_id", "host", rows);
+    return { properties: updatedProperties };
 };
 
 async function fetchFavouriteByUser(property_id, guest_id) {
