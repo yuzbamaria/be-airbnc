@@ -1,5 +1,5 @@
 const db = require("../db/connection");
-const { lookUpHosts, mapHostKey, orderProperties } = require("./utilsForModels");
+const { lookUpHosts, mapHostKey } = require("./utilsForModels");
 
 exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxprice, minprice) => {
 
@@ -36,14 +36,11 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
             properties.property_id = images.property_id `;
 
     const params = [];
-
     if(host) {
         queryStr += `WHERE host_id = $${params.length + 1} `;
         params.push(Number(host));
     };
-
     if(maxprice || minprice) {
-        
         if(host) {
             queryStr += `AND `;
         } else {
@@ -51,17 +48,14 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
         };
 
         const maxMinOptions = [];
-
         if(maxprice) {
             maxMinOptions.push(`price_per_night <= $${params.length + 1}`);
             params.push(Number(maxprice));
         };
-
         if(minprice) {
             maxMinOptions.push(`price_per_night >= $${params.length + 1}`);
             params.push(Number(minprice));
-        };
-        
+        }
         queryStr += maxMinOptions.join(" AND ");
     };
     
@@ -80,8 +74,18 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
 
     const hostsRef = lookUpHosts(rows);
     const updatedProperties = mapHostKey(hostsRef, "host_id", "host", rows);
+    console.log(updatedProperties)
     return { properties: updatedProperties };
 };
+
+this.fetchProperties()
+  .then(result => {
+    console.log(JSON.stringify(result, null, 2));
+  })
+  .catch(error => {
+    console.error(error);  
+  });
+
 
 async function fetchFavouriteByUser(property_id, guest_id) {
     const queryStr = `
