@@ -1,4 +1,13 @@
-const { postFavouriteById, removeFavourite } = require("../models/favouriteModel");;
+const { fetchFavourites, postFavouriteById, removeFavourite } = require("../models/favouriteModel");;
+
+exports.getFavourites = async(req, res, next) => {
+    try {
+        const favourites = await fetchFavourites();
+        res.status(200).send(favourites);
+    } catch (err) {
+        next(err);
+    };
+};
 
 exports.createFavouriteById = async(req, res, next) => {
     const { guest_id } = req.body;

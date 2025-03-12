@@ -1,4 +1,4 @@
-const { fetchProperties, fetchProperty } = require("../models/propertiesModels");
+const { fetchProperties, fetchProperty, fetchFavouriteByUserModel } = require("../models/propertiesModels");
 
 exports.getProperties =  async(req, res, next) => {
     const { sort, order, host, maxprice, minprice } = req.query;
@@ -21,3 +21,14 @@ exports.getProperty = async(req, res, next) => {
         next(err);
     };
 };
+
+// exports.getFavouriteByUser = async(req, res, next) => {
+//     const { id: property_id } = req.params;
+//     const { user_id } = req.query;
+//     try {
+//         const favourite = await fetchFavouriteByUserModel(property_id, user_id);
+//         res.status(200).send(favourite);
+//     } catch(err) {
+//         next(err);
+//     };
+// };

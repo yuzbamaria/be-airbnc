@@ -133,24 +133,24 @@ exports.fetchProperty = async (property_id, user_id) => {
     }
 };
 
-exports.fetchFavouriteByUserModel = async (property_id, guest_id) => {
-    try {
-        const queryStr = `
-            SELECT * 
-            FROM favourites
-            WHERE property_id = $1 AND guest_id = $2`;
-        const { rows } = await db.query(queryStr, [property_id, guest_id]);
+// exports.fetchFavouriteByUserModel = async (property_id, guest_id) => {
+//     try {
+//         const queryStr = `
+//             SELECT * 
+//             FROM favourites
+//             WHERE property_id = $1 AND guest_id = $2`;
+//         const { rows } = await db.query(queryStr, [property_id, guest_id]);
 
-        if (rows.length === 0) {
-            return null; // Return null if no favourite is found
-        };
+//         if (rows.length === 0) {
+//             return null; // Return null if no favourite is found
+//         };
 
-        return rows[0]; // Return the first favourite row found
-    } catch (err) {
-        console.error("Error fetching favourite:", err);
-        throw { status: 500, msg: "Internal server error." };
-    }
-};
+//         return rows[0]; // Return the first favourite row found
+//     } catch (err) {
+//         console.error("Error fetching favourite:", err);
+//         throw { status: 500, msg: "Internal server error." };
+//     }
+// };
 
 
 

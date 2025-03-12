@@ -15,6 +15,9 @@ propertiesRouter
 propertiesRouter
     .get("/:id", getProperty);
 
+// propertiesRouter
+//     .get("/:id/favourite", getFavouriteByUser);
+
 propertiesRouter
     .route("/:id/reviews")
     .get(getReviews)
