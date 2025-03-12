@@ -22,13 +22,13 @@ exports.getProperty = async(req, res, next) => {
     };
 };
 
-// exports.getFavouriteByUser = async(req, res, next) => {
-//     const { id: property_id } = req.params;
-//     const { user_id } = req.query;
-//     try {
-//         const favourite = await fetchFavouriteByUserModel(property_id, user_id);
-//         res.status(200).send(favourite);
-//     } catch(err) {
-//         next(err);
-//     };
-// };
+exports.getFavouriteByUser = async(req, res, next) => {
+    const { id: property_id } = req.params;
+    const { user_id } = req.query;
+    try {
+        const favourite = await fetchFavouriteByUserModel(property_id, user_id);
+        res.status(200).send(favourite);
+    } catch(err) {
+        next(err);
+    };
+};

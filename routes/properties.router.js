@@ -1,7 +1,7 @@
 const express = require("express");
 const propertiesRouter = express.Router();
 
-const { getProperties, getProperty } = require("../controllers/propertiesController");
+const { getProperties, getProperty, getFavouriteByUser } = require("../controllers/propertiesController");
 const { createFavouriteById } = require("../controllers/favouriteController");
 const { getReviews, addReview } = require("../controllers/reviewsController");
 const { getBookings, addBooking } = require("../controllers/bookingsController");
@@ -15,8 +15,8 @@ propertiesRouter
 propertiesRouter
     .get("/:id", getProperty);
 
-// propertiesRouter
-//     .get("/:id/favourite", getFavouriteByUser);
+propertiesRouter
+    .get("/:id/favourite", getFavouriteByUser);
 
 propertiesRouter
     .route("/:id/reviews")
