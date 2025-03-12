@@ -1,5 +1,11 @@
 const db = require("../db/connection");
 
+exports.fetchFavourites = async () => {
+    const queryStr = `SELECT * from favourites;`;
+    const {rows} = await db.query(queryStr);
+    return { favourites : rows};
+};
+
 exports.postFavouriteById = async(guest_id, property_id) => {
 
     // validate guest_id exists in db by user_id & role
