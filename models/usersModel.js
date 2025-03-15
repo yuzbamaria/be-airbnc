@@ -61,7 +61,7 @@ exports.fetchUserBookings = async(guest_id) => {
             properties.host_id = users.user_id 
         JOIN images ON
             bookings.property_id = images.property_id
-        WHERE guest_id = 2
+        WHERE guest_id = $1
         GROUP BY bookings.booking_id, properties.property_id, users.user_id
         ORDER BY
             bookings.check_in_date;`;
