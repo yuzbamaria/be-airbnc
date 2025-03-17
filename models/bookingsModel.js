@@ -78,10 +78,19 @@ exports.editBooking = async(booking_id, check_in_date, check_out_date) => {
         };
     };
 
-    queryStr += definedProps.join(', ') + `WHERE booking_id = $1 RETURNING *;`;
+    queryStr += definedProps.join(', ') + ` WHERE booking_id = $1 RETURNING *;`;
+
+    // console.log("SQL Query:", queryStr);
+    // console.log("Parameters:", params);
+
     const { rows } = await db.query(queryStr, params);
     if(rows.length === 0) {
         return Promise.reject({ status: 404, msg: "Booking not found." })
     };
     return rows[0];
 };
+
+this.editBooking(24, '2025-03-20','2025-03-22')
+    .then(result => console.log(result))
+    .catch(err => console.log(err))
+    
