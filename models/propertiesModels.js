@@ -16,12 +16,15 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
         return Promise.reject({ status: 404, msg: "Path not found." }); // handlePathNotFound, 404
     };
 
+    const safeSort = validSortOptions.includes(sort) ? sort : "popularity";
+    const safeOrder = validOrderOptions.includes(order) ? order : "desc";
+
     let queryStr = `SELECT 
             properties.property_id,
             properties.name as property_name,
             properties.location,
             properties.property_type,
-            properties.price_per_night::int AS price_per_night,
+            properties.price_per_night::int AS cost_per_night,
             properties.host_id,
             users.first_name,
             users.surname,
@@ -64,7 +67,7 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
             users.first_name,
             users.surname `;
 
-    queryStr += `ORDER BY ${sort} ${order};`;
+    queryStr += `ORDER BY ${safeSort} ${safeOrder};`;
 
     const { rows } = await db.query(queryStr, params);
 
@@ -74,7 +77,6 @@ exports.fetchProperties = async(sort = "popularity", order = "desc", host, maxpr
 
     const hostsRef = lookUpHosts(rows);
     const updatedProperties = mapHostKey(hostsRef, "host_id", "host", rows);
-    console.log(updatedProperties)
     return { properties: updatedProperties };
 };
 
@@ -129,9 +131,8 @@ exports.fetchProperty = async (property_id, user_id) => {
       return { property };
     } catch (err) {
       console.error(err);
-    //   return Promise.reject({ status: 500, msg: "Internal server error." });
     }
-  };
+};
 
   exports.fetchFavouriteByUserModel = async (property_id, guest_id) => {
         try {
@@ -150,5 +151,5 @@ exports.fetchProperty = async (property_id, user_id) => {
             console.error("Error fetching favourite:", err);
             throw { status: 500, msg: "Internal server error." };
         }
-    };
+};
 
