@@ -5,7 +5,8 @@
     "email": "alice@example.com",
     "phone_number": "+44 7000 111111",
     "role": "host",
-    "avatar": "https://example.com/images/alice.jpg"
+    "avatar": "https://example.com/images/alice.jpg",
+    "password": "000000"
   },
   {
     "first_name": "Bob",
@@ -13,7 +14,8 @@
     "email": "bob@example.com",
     "phone_number": "+44 7000 222222",
     "role": "guest",
-    "avatar": "https://example.com/images/bob.jpg"
+    "avatar": "https://example.com/images/bob.jpg",
+    "password": "000111"
   },
   {
     "first_name": "Emma",
@@ -21,7 +23,8 @@
     "email": "emma@example.com",
     "phone_number": "+44 7000 333333",
     "role": "host",
-    "avatar": "https://example.com/images/emma.jpg"
+    "avatar": "https://example.com/images/emma.jpg",
+    "password": "000222"
   },
   {
     "first_name": "Frank",
@@ -29,7 +32,8 @@
     "email": "frank@example.com",
     "phone_number": "+44 7000 444444",
     "role": "guest",
-    "avatar": "https://example.com/images/frank.jpg"
+    "avatar": "https://example.com/images/frank.jpg",
+    "password": "000333"
   },
   {
     "first_name": "Isabella",
@@ -37,7 +41,8 @@
     "email": "isabella@example.com",
     "phone_number": "+44 7000 555555",
     "role": "host",
-    "avatar": "https://example.com/images/isabella.jpg"
+    "avatar": "https://example.com/images/isabella.jpg",
+    "password": "000444"
   },
   {
     "first_name": "Rachel",
@@ -45,6 +50,7 @@
     "email": "rachel@example.com",
     "phone_number": "+44 7000 666666",
     "role": "guest",
-    "avatar": "https://example.com/images/rachel.jpg"
+    "avatar": "https://example.com/images/rachel.jpg",
+    "password": "000555"
   }
 ]

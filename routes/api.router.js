@@ -6,11 +6,13 @@ const reviewsRouter = require("./reviews.router");
 const bookingsRouter = require("./bookings.router");
 const favouritesRouter = require("./favourites.router");
 const usersRouter = require("./users.router");
+const signupRouter = require("./signup.router");
 
 apiRouter.use("/properties", propertiesRouter);
 apiRouter.use("/reviews", reviewsRouter);
 apiRouter.use("/bookings", bookingsRouter);
 apiRouter.use("/favourites", favouritesRouter);
 apiRouter.use("/users", usersRouter);
+apiRouter.use("/signup", signupRouter);
 
 module.exports = apiRouter;

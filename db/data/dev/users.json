@@ -5,7 +5,8 @@
     "email": "alice@example.com",
     "phone_number": "+44 7000 111111",
     "role": "host",
-    "avatar": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "000000"
   },
   {
     "first_name": "Bob",
@@ -13,7 +14,8 @@
     "email": "bob@example.com",
     "phone_number": "+44 7000 222222",
     "role": "guest",
-    "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "111111"
   },
   {
     "first_name": "Emma",
@@ -21,7 +23,8 @@
     "email": "emma@example.com",
     "phone_number": "+44 7000 333333",
     "role": "host",
-    "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "222222"
   },
   {
     "first_name": "Frank",
@@ -29,7 +32,8 @@
     "email": "frank@example.com",
     "phone_number": "+44 7000 444444",
     "role": "guest",
-    "avatar": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "333333"
   },
   {
     "first_name": "Isabella",
@@ -37,7 +41,8 @@
     "email": "isabella@example.com",
     "phone_number": "+44 7000 555555",
     "role": "host",
-    "avatar": "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "444444"
   },
   {
     "first_name": "Rachel",
@@ -45,7 +50,8 @@
     "email": "rachel@example.com",
     "phone_number": "+44 7000 666666",
     "role": "guest",
-    "avatar": "https://images.unsplash.com/photo-1692167759863-a2d447a834ba?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1692167759863-a2d447a834ba?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "555555"
   },
   {
     "first_name": "Liam",
@@ -53,7 +59,8 @@
     "email": "liam@example.com",
     "phone_number": "+44 7000 777777",
     "role": "host",
-    "avatar": "https://images.unsplash.com/photo-1528241725452-5a0eff84abe3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1528241725452-5a0eff84abe3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "666666"
   },
   {
     "first_name": "Sophia",
@@ -61,7 +68,8 @@
     "email": "sophia@example.com",
     "phone_number": "+44 7000 888888",
     "role": "guest",
-    "avatar": "https://images.unsplash.com/photo-1606335192038-f5a05f761b3a?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1606335192038-f5a05f761b3a?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "777777"
   },
   {
     "first_name": "Lucas",
@@ -69,7 +77,8 @@
     "email": "lucas@example.com",
     "phone_number": "+44 7000 999999",
     "role": "host",
-    "avatar": "https://images.unsplash.com/photo-1606459431839-90b942dc3754?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1606459431839-90b942dc3754?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "888888"
   },
   {
     "first_name": "Chloe",
@@ -77,7 +86,8 @@
     "email": "chloe@example.com",
     "phone_number": "+44 7000 101010",
     "role": "guest",
-    "avatar": "https://images.unsplash.com/photo-1708170236080-6cb6d2d5497c?q=80&w=2002&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Ds"
+    "avatar": "https://images.unsplash.com/photo-1708170236080-6cb6d2d5497c?q=80&w=2002&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Ds",
+    "password": "999999"
   },
   {
     "first_name": "Mason",
@@ -85,7 +95,8 @@
     "email": "mason@example.com",
     "phone_number": "+44 7000 121212",
     "role": "host",
-    "avatar": "https://images.unsplash.com/photo-1550091346-1e823a403e60?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1550091346-1e823a403e60?q=80&w=1972&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "111222"
   },
   {
     "first_name": "Olivia",
@@ -93,7 +104,8 @@
     "email": "olivia@example.com",
     "phone_number": "+44 7000 131313",
     "role": "guest",
-    "avatar": "https://images.unsplash.com/photo-1598630388567-9fdbfd7e928e?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1598630388567-9fdbfd7e928e?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "222333"
   },
   {
     "first_name": "Ethan",
@@ -101,6 +113,7 @@
     "email": "ethan@example.com",
     "phone_number": "+44 7000 141414",
     "role": "host",
-    "avatar": "https://images.unsplash.com/photo-1646197879190-78a962aab29b?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    "avatar": "https://images.unsplash.com/photo-1646197879190-78a962aab29b?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "password": "333444"
   }
 ]

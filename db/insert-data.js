@@ -1,19 +1,27 @@
 const db = require("./connection.js");
 const format = require("pg-format");
+const bcrypt = require("bcrypt");
 
 exports.insertUsers = async(users) => {
-    const formattedUsers = users.map(({ 
-        first_name, 
-        surname, 
-        email, 
-        phone_number, 
-        role, 
-        avatar 
-    }) => [first_name, surname, email, phone_number, role, avatar]);
+    const hashedUsers = await Promise.all(
+        users.map(async ({ 
+                first_name, 
+                surname, 
+                email, 
+                phone_number, 
+                role, 
+                avatar,
+                password
+            }) => {
+                const password_hash = await bcrypt.hash(password, 10);
+                return [first_name, surname, email, phone_number, role, avatar, password_hash];
+            })
+    );
+
     const queryStr = `INSERT INTO users
-        (first_name, surname, email, phone_number, role, avatar)
+        (first_name, surname, email, phone_number, role, avatar, password_hash)
         VALUES %L RETURNING *;`;
-    return await db.query(format(queryStr, formattedUsers));
+    return await db.query(format(queryStr, hashedUsers));
 };
 
 exports.insertPropertyTypes = async(propertyTypes) => {

@@ -90,7 +90,7 @@ exports.editBooking = async(booking_id, check_in_date, check_out_date) => {
     return rows[0];
 };
 
-this.editBooking(24, '2025-03-20','2025-03-22')
-    .then(result => console.log(result))
-    .catch(err => console.log(err))
+// this.editBooking(24, '2025-03-20','2025-03-22')
+//     .then(result => console.log(result))
+//     .catch(err => console.log(err))
     
