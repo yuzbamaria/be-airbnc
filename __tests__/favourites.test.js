@@ -21,7 +21,7 @@ describe("DELETE /api/favourites/:id", () => {
 
     describe("HAPPY PATH", () => {
         test("204 - successfully deletes a row with a status 204 No Content and returns no body", async() => {
-            await request(app)
+            const result = await request(app)
                 .delete("/api/favourites/2")
                 .set("Authorization", `Bearer ${token}`)
                 .expect(204);

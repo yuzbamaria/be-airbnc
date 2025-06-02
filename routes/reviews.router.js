@@ -1,9 +1,10 @@
 const express = require("express");
 const reviewsRouter = express.Router();
+const authMiddleware = require("../middleware/authMiddleware");
 
 const { deleteReview } = require("../controllers/reviewsController");
 
 reviewsRouter
-    .delete("/:id", deleteReview);
+    .delete("/:id", authMiddleware, deleteReview);
 
 module.exports = reviewsRouter;
