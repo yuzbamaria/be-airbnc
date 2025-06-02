@@ -1,32 +1,28 @@
 const express = require("express");
 const propertiesRouter = express.Router();
+const authMiddleware = require("../middleware/authMiddleware");
 
 const { getProperties, getProperty, getFavouriteByUser } = require("../controllers/propertiesController");
 const { createFavouriteById } = require("../controllers/favouriteController");
 const { getReviews, addReview } = require("../controllers/reviewsController");
 const { getBookings, addBooking } = require("../controllers/bookingsController");
 
-propertiesRouter
-    .get("/", getProperties);
+propertiesRouter.get("/", getProperties);
+propertiesRouter.get("/:id", getProperty);
+propertiesRouter.get("/:id/reviews", getReviews);
 
 propertiesRouter
-    .post("/:id/favourite", createFavouriteById);
+    .post("/:id/favourite", authMiddleware, createFavouriteById);
 
 propertiesRouter
-    .get("/:id", getProperty);
+    .get("/:id/favourite", authMiddleware, getFavouriteByUser);
+
+propertiesRouter.post("/:id/reviews", authMiddleware, addReview);
 
 propertiesRouter
-    .get("/:id/favourite", getFavouriteByUser);
+    .get("/:id/bookings", authMiddleware, getBookings);
 
 propertiesRouter
-    .route("/:id/reviews")
-    .get(getReviews)
-    .post(addReview);
-
-propertiesRouter
-    .get("/:id/bookings", getBookings);
-
-propertiesRouter
-    .post("/:id/booking", addBooking); 
+    .post("/:id/booking", authMiddleware, addBooking); 
 
 module.exports = propertiesRouter;

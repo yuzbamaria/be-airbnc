@@ -15,7 +15,7 @@ exports.getNewUser = async(req, res, next) => {
         
         //  generate a token after successful DB insert
         const { TOKEN_SECRET } = process.env;
-        const token = jwt.sign(
+        const token = jwt.sign( 
             { user_id: newUser.user_id, role: newUser.role}, 
             TOKEN_SECRET, 
             { expiresIn: "1h" }

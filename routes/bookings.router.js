@@ -1,5 +1,6 @@
 const express = require("express");
 const bookingsRouter = express.Router();
+const authMiddleware = require("../middleware/authMiddleware");
 
 const { 
     deleteBooking, 

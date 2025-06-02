@@ -7,8 +7,10 @@ exports.getRegisteredUser = async(req, res, next) => {
 
     try {
         const registeredUser = await retrieveRegisteredUser(email); // attempt to retrieve the user from the db, if it doesn't, send a message that the user doesn't exist 
+        // console.log(registeredUser)
         const hash = registeredUser.password_hash;  // if the user exists, make sure that the password they provided matches their password in db 
         const passwordsMatch = await bcrypt.compare(password, hash);
+        // console.log(passwordsMatch)
 
         if (passwordsMatch) {  // provide a user with a token if all of the above works 
             // generate a token 

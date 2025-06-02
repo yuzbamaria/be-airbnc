@@ -1,6 +1,6 @@
 const express = require("express");
 const apiRouter = express.Router();
-const authMiddleware = require("./middleware/authMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const propertiesRouter = require("./properties.router");
 const reviewsRouter = require("./reviews.router");
