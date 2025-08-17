@@ -4,7 +4,7 @@
     "property_type": "Apartment",
     "location": "London, UK",
     "price_per_night": 120.0,
-    "description": "Description of Modern Apartment in City Center. A sleek apartment with all modern amenities.",
+    "description": "A sleek apartment with all modern amenities. The open-plan living space is filled with natural light, creating a warm and inviting atmosphere. The kitchen is fully equipped with the latest appliances for your convenience. The bedroom offers a comfortable queen-size bed and ample storage space. Perfectly located, it’s close to shops, restaurants, and public transport, making it ideal for both short and long stays.",
     "host_name": "Alice Johnson"
   },
   {
@@ -12,7 +12,7 @@
     "property_type": "House",
     "location": "Manchester, UK",
     "price_per_night": 150.0,
-    "description": "A spacious home perfect for families looking to explore the city.",
+    "description": "A spacious home perfect for families looking to explore the city. The house has multiple bedrooms and a large living area for everyone to relax. The backyard is great for kids to play or for a family BBQ. Located in a quiet neighborhood, it is still close to local attractions and public transport. It provides all the comforts of home for a memorable family getaway.",
     "host_name": "Alice Johnson"
   },
   {
@@ -20,7 +20,7 @@
     "property_type": "Studio",
     "location": "Brighton, UK",
     "price_per_night": 90.0,
-    "description": "A modern, cosy studio just steps away from the sea.",
+    "description": "A modern, cosy studio just steps away from the sea. The interior is stylishly decorated with comfortable furniture and thoughtful touches. Guests can enjoy a compact kitchenette for light cooking. Large windows offer plenty of natural light and views of the nearby beach. It’s ideal for solo travelers or couples seeking a peaceful seaside escape.",
     "host_name": "Alice Johnson"
   },
   {
@@ -28,7 +28,7 @@
     "property_type": "Apartment",
     "location": "Birmingham, UK",
     "price_per_night": 110.0,
-    "description": "Stylish apartment located in the heart of Birmingham, close to all attractions.",
+    "description": "Stylish apartment located in the heart of Birmingham, close to all attractions. The living area is modern, with a cozy seating space and dining area. The bedroom is furnished with a comfortable bed and soft linens. Guests can enjoy a fully equipped kitchen for preparing meals. This apartment is perfect for city breaks or business trips.",
     "host_name": "Emma Davis"
   },
   {
@@ -36,7 +36,7 @@
     "property_type": "Studio",
     "location": "Bristol, UK",
     "price_per_night": 85.0,
-    "description": "A peaceful studio perfect for solo travelers or couples.",
+    "description": "A peaceful studio perfect for solo travelers or couples. The space is thoughtfully designed to maximize comfort in a compact area. Guests will find a cozy bed, a small dining nook, and a modern bathroom. The studio is located near local cafes and shops for convenience. Ideal for those looking for a quiet and charming getaway.",
     "host_name": "Emma Davis"
   },
   {
@@ -44,7 +44,7 @@
     "property_type": "Apartment",
     "location": "London, UK",
     "price_per_night": 250.0,
-    "description": "A high-end penthouse offering breathtaking views of the London skyline.",
+    "description": "A high-end penthouse offering breathtaking views of the London skyline. The living space is open and elegantly furnished, with floor-to-ceiling windows. The kitchen is fully equipped with premium appliances. Guests can relax in spacious bedrooms with luxury bedding. Perfect for travelers seeking an indulgent stay in the heart of the city.",
     "host_name": "Alice Johnson"
   },
   {
@@ -52,7 +52,7 @@
     "property_type": "House",
     "location": "Yorkshire, UK",
     "price_per_night": 200.0,
-    "description": "A large country house with a beautiful garden and scenic views.",
+    "description": "A large country house with a beautiful garden and scenic views. The interior features a mix of rustic charm and modern comfort. Multiple bedrooms accommodate families or groups comfortably. Guests can enjoy peaceful walks in the surrounding countryside. It’s an ideal retreat for those seeking relaxation away from the city.",
     "host_name": "Isabella Martinez"
   },
   {
@@ -60,7 +60,7 @@
     "property_type": "Studio",
     "location": "Cornwall, UK",
     "price_per_night": 95.0,
-    "description": "A quaint studio by the sea, perfect for a weekend escape.",
+    "description": "A quaint studio by the sea, perfect for a weekend escape. The cozy interior includes a comfortable bed and a small kitchenette. Large windows let in natural light and offer views of the ocean. The beach is just a short walk away, ideal for morning strolls or sunsets. It’s a perfect spot for couples or solo travelers looking to unwind.",
     "host_name": "Emma Davis"
   },
   {
@@ -68,7 +68,7 @@
     "property_type": "Apartment",
     "location": "Manchester, UK",
     "price_per_night": 130.0,
-    "description": "A charming loft offering easy access to Manchester’s vibrant nightlife.",
+    "description": "A charming loft offering easy access to Manchester’s vibrant nightlife. The space has a modern open-plan design with comfortable seating and stylish decor. A fully equipped kitchen allows for easy meal preparation. The bedroom features a plush bed and storage options. Perfect for travelers who want a blend of comfort and city excitement.",
     "host_name": "Isabella Martinez"
   },
   {
@@ -76,7 +76,7 @@
     "property_type": "Cottage",
     "location": "Lake District, UK",
     "price_per_night": 180.0,
-    "description": "A cosy cottage nestled in the hills, ideal for nature lovers.",
+    "description": "A cosy cottage nestled in the hills, ideal for nature lovers. The interior blends traditional charm with modern amenities. Guests can enjoy a fully equipped kitchen and a comfortable living space. Large windows provide stunning views of the surrounding landscape. It’s perfect for a tranquil retreat or an adventurous exploration of the Lake District.",
     "host_name": "Isabella Martinez"
   },
   {
@@ -84,7 +84,7 @@
     "property_type": "Studio",
     "location": "Cambridge, UK",
     "price_per_night": 100.0,
-    "description": "A well-lit, comfortable studio located in a quiet area of Cambridge.",
+    "description": "A well-lit, comfortable studio located in a quiet area of Cambridge. The space includes a cozy bed, small dining area, and modern bathroom. Large windows create a bright and airy atmosphere. Guests can easily access local cafes, shops, and historic sites. Ideal for solo travelers or couples visiting Cambridge.",
     "host_name": "Alice Johnson"
   },
   {
@@ -92,7 +92,7 @@
     "property_type": "House",
     "location": "Swansea, UK",
     "price_per_night": 175.0,
-    "description": "A charming house with a large garden, just a short walk from the beach.",
+    "description": "A charming house with a large garden, just a short walk from the beach. The interior features comfortable living spaces and a fully equipped kitchen. The garden is perfect for relaxing or enjoying outdoor meals. The location provides easy access to local attractions and coastal walks. Ideal for families or friends seeking a seaside getaway.",
     "host_name": "Liam O'Connor"
   },
   {
@@ -100,7 +100,7 @@
     "property_type": "Loft",
     "location": "London, UK",
     "price_per_night": 200.0,
-    "description": "A contemporary loft with all the latest amenities in the heart of London.",
+    "description": "A contemporary loft with all the latest amenities in the heart of London. The open-plan space is stylishly decorated and filled with natural light. Guests can cook in the modern kitchen or relax in the comfortable living area. The loft is conveniently located near restaurants, cafes, and public transport. Perfect for city explorers seeking a trendy and central stay.",
     "host_name": "Mason Roberts"
   },
   {
@@ -108,7 +108,7 @@
     "property_type": "Cabin",
     "location": "Scotland, UK",
     "price_per_night": 120.0,
-    "description": "A secluded cabin surrounded by trees, perfect for a peaceful getaway.",
+    "description": "A secluded cabin surrounded by trees, perfect for a peaceful getaway. The interior is rustic yet comfortable, with a cozy living area and fully equipped kitchen. Guests can enjoy the tranquility of nature and scenic forest views. Nearby trails are perfect for hiking and outdoor adventures. It’s an ideal retreat for relaxation or reconnecting with nature.",
     "host_name": "Lucas Walker"
   },
   {
@@ -116,7 +116,7 @@
     "property_type": "Villa",
     "location": "Cornwall, UK",
     "price_per_night": 400.0,
-    "description": "A luxurious villa overlooking the sea with a private infinity pool.",
+    "description": "A luxurious villa overlooking the sea with a private infinity pool. The interior is elegant and spacious, with multiple bedrooms and living areas. Guests can enjoy modern appliances and high-end amenities throughout. The outdoor terrace offers panoramic ocean views, perfect for dining or sunbathing. Ideal for families or groups seeking a lavish seaside escape.",
     "host_name": "Lucas Walker"
   },
   {
@@ -124,7 +124,7 @@
     "property_type": "Chalet",
     "location": "Eryri, UK",
     "price_per_night": 160.0,
-    "description": "A chalet offering stunning views of the mountains, ideal for winter retreats.",
+    "description": "A chalet offering stunning views of the mountains, ideal for winter retreats. The interior is warm and inviting, with a fireplace and comfortable seating. Guests can enjoy fully equipped kitchen facilities and cozy bedrooms. The location provides easy access to hiking trails and winter sports activities. Perfect for travelers seeking a scenic and relaxing escape.",
     "host_name": "Ethan Harris"
   },
   {
@@ -132,7 +132,7 @@
     "property_type": "Cottage",
     "location": "Cornwall, UK",
     "price_per_night": 130.0,
-    "description": "A charming cottage tucked away in the countryside, perfect for a weekend escape.",
+    "description": "A charming cottage tucked away in the countryside, perfect for a weekend escape. The space features rustic decor with modern comforts for a relaxing stay. Guests can enjoy a fully equipped kitchen and cozy living area. The surrounding area offers scenic walks and quiet natural beauty. Ideal for couples or small groups seeking peace and tranquility.",
     "host_name": "Ethan Harris"
   },
   {
@@ -140,7 +140,7 @@
     "property_type": "Loft",
     "location": "London, UK",
     "price_per_night": 220.0,
-    "description": "A modern loft in a trendy area of London, surrounded by street art and restaurants.",
+    "description": "A modern loft in a trendy area of London, surrounded by street art and restaurants. The interior is sleek and open, with contemporary furnishings and a fully equipped kitchen. Guests can relax in the spacious living area or explore the vibrant neighborhood. The loft is close to public transport, making it easy to explore the city. Perfect for travelers seeking style and convenience in London.",
     "host_name": "Mason Roberts"
   },
   {
@@ -148,7 +148,7 @@
     "property_type": "Castle",
     "location": "Scotland, UK",
     "price_per_night": 500.0,
-    "description": "A unique stay in a restored Scottish castle, with luxurious amenities and stunning views.",
+    "description": "A unique stay in a restored Scottish castle, with luxurious amenities and stunning views. The castle features grand interiors, including spacious rooms and period furnishings. Guests can enjoy modern comforts alongside historic charm. The surrounding grounds offer scenic walks and outdoor relaxation. Perfect for a once-in-a-lifetime experience or special celebrations.",
     "host_name": "Isabella Martinez"
   },
   {
@@ -156,7 +156,7 @@
     "property_type": "Villa",
     "location": "Lake District, UK",
     "price_per_night": 350.0,
-    "description": "A stunning villa overlooking the lake, perfect for large groups or special occasions.",
+    "description": "A stunning villa overlooking the lake, perfect for large groups or special occasions. The interior is elegant and spacious, featuring multiple bedrooms, bathrooms, and living areas. Guests can enjoy modern kitchens and luxurious furnishings. The outdoor area offers breathtaking lake views and a terrace for dining or relaxation. Ideal for family gatherings or groups seeking a premium retreat in the Lake District.",
     "host_name": "Lucas Walker"
   }
 ]
