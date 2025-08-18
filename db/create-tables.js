@@ -1,10 +1,10 @@
 exports.createUsersTable = `CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
-    first_name VARCHAR NOT NULL,
-    surname VARCHAR NOT NULL,
-    email VARCHAR NOT NULL,
+    first_name VARCHAR,
+    surname VARCHAR,
+    email VARCHAR NOT NULL UNIQUE,
     phone_number VARCHAR,
-    role VARCHAR CHECK (role IN ('host', 'guest')),
+    role VARCHAR DEFAULT 'guest' CHECK (role IN ('host', 'guest')),
     avatar VARCHAR, 
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);`;
