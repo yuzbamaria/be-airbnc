@@ -5,7 +5,7 @@ const checkRole = require("../middleware/checkRole");
 
 const { deleteReview } = require("../controllers/reviewsController");
 
-reviewsRouter
-    .delete("/:id", authMiddleware, checkRole("guest"), deleteReview);
+reviewsRouter.post("/", authMiddleware, checkRole("guest"), createReview);
+reviewsRouter.delete("/:id", authMiddleware, checkRole("guest"), deleteReview);
 
 module.exports = reviewsRouter;

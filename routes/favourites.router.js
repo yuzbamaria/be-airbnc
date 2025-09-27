@@ -5,10 +5,12 @@ const checkRole = require("../middleware/checkRole");
 
 const { getFavourites, deleteFavourite } = require("../controllers/favouriteController"); 
 
+favouritesRouter.use(authMiddleware);
+
 favouritesRouter
     .get("/", getFavourites);
 
 favouritesRouter
-    .delete("/:id", authMiddleware, checkRole("guest"), deleteFavourite);
+    .delete("/:id", checkRole("guest"), deleteFavourite);
 
 module.exports = favouritesRouter;
